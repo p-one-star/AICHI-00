@@ -2,8 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <!-- viewportの指定で横スクロールを許容するように変更 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>AICHI ★01 - FHW</title>
   
   <!-- Tailwind CSS (CDN) の読み込み -->
@@ -20,14 +19,8 @@
     .font-impact { font-family: 'Impact', 'Arial Black', sans-serif; }
     * { -webkit-tap-highlight-color: transparent; }
     
-    /* 横スクロールを完全に許可するために overflow-x: hidden を削除！ 
-       これで左右にはみ出た画像（愛知、マシン）までスワイプで見に行ける！
-    */
-    body { 
-      background-color: black; 
-      color: white; 
-      /* overflow-x: hidden; を削除しました */
-    }
+    /* overflow-x: hidden は設定せず、横スワイプを自然に許容する */
+    body { background-color: black; color: white; }
 
     /* ==========================================
        言語切り替え用のCSS
@@ -44,7 +37,7 @@
     body.is-english span.lang-ja { display: none; }
 
     /* ==========================================
-       呼吸アニメーション (20秒で拡大、20秒で縮小 = 40秒周期)
+       呼吸アニメーション (20秒で1.15倍、20秒で元に = 40秒周期)
        ========================================== */
     @keyframes breathe {
       0% { transform: scale(1); }
@@ -60,9 +53,9 @@
 <body class="font-sans pb-20">
 
   <!-- --- ヘッダー領域 --- -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 h-14 w-full">
+  <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 h-14 relative">
     
-    <!-- 左: ロゴ画像 -->
+    <!-- 左: ロゴ画像 (完璧だった位置 top-[-32px]) -->
     <div class="relative z-20 flex items-center justify-start w-12">
       <img src="icon.PNG" alt="Logo" class="absolute top-[-32px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
     </div>
@@ -79,16 +72,17 @@
         <div class="w-px h-2.5 bg-[#444444]"></div>
         <span id="icon-jp" class="text-[11px] transition-opacity opacity-100">🇯🇵</span>
       </button>
+      
+      <!-- 🍙に呼吸アニメーションを追加！ -->
       <div class="text-[18px] animate-breathe origin-center">🍙</div>
     </div>
   </header>
 
-  <!-- --- メインコンテンツ (ヘッダーがfixedになったのでpadding-topを追加) --- -->
-  <!-- max-w-md は外さないが、中身がはみ出ることを許可する -->
-  <main class="w-full max-w-md mx-auto pt-20 px-2 relative">
+  <!-- --- メインコンテンツ --- -->
+  <main class="max-w-md mx-auto px-2">
     
     <!-- ORIGIN OF FHW -->
-    <div class="mb-6 flex flex-col items-center justify-center font-blackops leading-[0.9]" style="color: #c0c0c0; text-shadow: 0 0 3px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);">
+    <div class="mt-10 mb-6 flex flex-col items-center justify-center font-blackops leading-[0.9]" style="color: #c0c0c0; text-shadow: 0 0 3px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);">
       <div class="text-[58px]">ORIGIN</div>
       <div class="text-[48px]">OF</div>
       <div class="text-[72px]">FHW</div>
@@ -132,7 +126,7 @@
       <!-- CRAFTED IN JAPAN & 印鑑 -->
       <div class="relative mt-2 pt-6 mb-4"> 
         
-        <!-- 右上の印鑑 (icon2.PNG) -->
+        <!-- 右上の印鑑 (icon2.PNG) 完璧だった位置 top-[-35px] -->
         <div class="absolute right-[5%] top-[-35px] z-20 pointer-events-none">
           <img src="icon2.PNG" alt="Stamp" class="w-[80px] h-[80px] object-contain transform rotate-[-8deg] opacity-90 drop-shadow-md">
         </div>
@@ -142,7 +136,7 @@
           <span>CRAFTED</span>
           <span class="relative mx-[0.4em] flex items-center justify-center">
             
-            <!-- 日の丸呼吸アニメーション -->
+            <!-- 日の丸 (ベースサイズを36pxに少し小さくし、呼吸アニメーションを追加！) -->
             <div class="absolute z-0 transform -translate-x-[6px] flex items-center justify-center">
               <div class="w-[36px] h-[36px] bg-[#ff0000] rounded-full blur-[2px] opacity-100 animate-breathe origin-center" style="box-shadow: 0 0 10px rgba(255,0,0,0.8);"></div>
             </div>
@@ -160,42 +154,38 @@
     <div class="font-impact">
 
       <!-- --- LOCAL ROOTS (マップと車) --- -->
-      <!-- ここが超重要！ overflow を設定せず、中身の画像が枠を無視して広がるようにする -->
-      <!-- 高さは確保するが、左右の制限は一切しない -->
-      <div class="relative w-full h-[320px] mb-10 px-2 mt-6">
+      <div class="relative w-full h-[280px] mb-10 px-2 mt-6">
         
         <!-- 愛知県マップ (aj.PNG) 
-             「超巨大」にして、左奥に配置。
-             画面上は右半分しか見えていないが、左にスワイプすると全体が見えるようになる。
-             max-w-none で画像の縮小を防ぐ -->
-        <div class="absolute top-[-120px] left-[-300px] z-10 pointer-events-none">
-          <img src="aj.PNG" alt="Aichi Map" class="w-[700px] max-w-none h-auto object-contain opacity-80 drop-shadow-xl">
+             ★完璧だったサイズと位置に完全ロールバック！★ 
+             (はみ出しすぎない絶妙な見切れ具合) -->
+        <div class="absolute top-[-40px] left-[-10px] w-[115%] h-[115%] z-10 pointer-events-none">
+          <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
         </div>
 
-        <!-- マップ上の赤ターゲットマーク (愛知県マップの大きさに合わせて再配置) -->
-        <div class="absolute top-[20px] left-[40px] w-6 h-6 z-20">
+        <!-- マップ上の赤ターゲットマーク (完璧だった位置) -->
+        <div class="absolute top-[18%] left-[22%] w-6 h-6 z-20">
           <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
           <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
           <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
         </div>
 
-        <!-- 右上: 座標とテキスト -->
-        <div class="absolute top-[-30px] right-2 z-20 pr-2">
-          <div class="text-[#888888] text-sm tracking-wider text-right">35.1850°N</div>
-          <div class="text-[#888888] text-sm tracking-wider mb-1 text-right">136.8997°E</div>
-          <div class="text-[#666666] text-xs tracking-widest text-right">LOCAL ROOTS</div>
+        <!-- 右上: 座標とテキスト (完璧だった位置) -->
+        <div class="absolute top-[-15px] right-8 z-20 pr-2">
+          <div class="text-[#888888] text-sm tracking-wider">35.1850°N</div>
+          <div class="text-[#888888] text-sm tracking-wider mb-1">136.8997°E</div>
+          <div class="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
         </div>
 
         <!-- 車 (maru.PNG) 
-             「超巨大」にして、右奥に配置。
-             画面上は左半分しか見えていないが、右にスワイプすると全体が見えるようになる。
-             max-w-none で画像の縮小を防ぐ -->
-        <div class="absolute bottom-[-10px] right-[-150px] z-30 pointer-events-none flex items-end justify-end">
-           <img src="maru.PNG" alt="Car" class="w-[450px] max-w-none h-auto object-contain drop-shadow-2xl">
+             ★完璧だったサイズと位置に完全ロールバック！★ 
+             (右にスワイプすると全体が見える絶妙なはみ出し) -->
+        <div class="absolute bottom-[-10px] right-[-80px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
+           <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
         </div>
 
-        <!-- 左下: AICHI JAPAN テキスト -->
-        <div class="absolute bottom-[20px] left-4 z-40 flex items-center gap-2">
+        <!-- 左下: AICHI JAPAN テキスト (完璧だった位置) -->
+        <div class="absolute bottom-[10px] left-4 z-40 flex items-center gap-2">
           <span class="text-[#888888] text-2xl tracking-wider">AICHI</span>
           <span class="text-xl font-sans">🇯🇵</span>
           <span class="text-[#888888] text-2xl tracking-wider">JAPAN</span>
@@ -203,16 +193,15 @@
       </div>
 
       <!-- --- シェア・ナビゲーションセクション --- -->
-      <div class="mt-10 mb-8 px-2 relative z-40 bg-black">
-        <!-- bg-black をつけておかないと、横スワイプした時に下の背景が透けてしまうため -->
-        
+      <div class="mt-10 mb-8 px-2">
         <h2 class="text-center text-[#888888] text-2xl tracking-widest mb-6 uppercase">
           <span class="lang-ja">SHARE THIS MADNESS</span>
           <span class="lang-en">Share this madness</span>
         </h2>
 
         <!-- シェアボタン群 (上段2つ) -->
-        <div class="grid grid-cols-2 gap-3 mb-3 w-full">
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <!-- リンクをコピー -->
           <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#999999]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
             <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
@@ -221,6 +210,7 @@
             </span>
           </button>
           
+          <!-- Xでシェア -->
           <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="text-[#999999]"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
             <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
@@ -230,7 +220,8 @@
           </button>
         </div>
         
-        <div class="flex justify-center mb-10 w-full">
+        <!-- Pシェア -->
+        <div class="flex justify-center mb-10">
           <button class="flex items-center justify-center gap-2.5 border border-[#333333] bg-black py-3 px-8 min-w-[160px] outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="18" height="18" fill="currentColor" class="text-[#999999]">
               <path d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3 .8-3.4 5-20.3 6.9-28.1 .6-2.5 .3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/>
@@ -243,7 +234,7 @@
         </div>
 
         <!-- ナビゲーションボタン -->
-        <div class="flex flex-col gap-3 w-full">
+        <div class="flex flex-col gap-3">
           <button class="w-full bg-black border border-[#333333] py-5 text-center outline-none">
             <span class="text-[#cccccc] tracking-widest text-xl">BACK TO WORLD MAP</span>
           </button>
