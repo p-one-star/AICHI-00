@@ -2,7 +2,6 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport設定。横スクロールを許容しつつ、ズームは防ぐ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>AICHI ★01 - FHW</title>
   
@@ -23,7 +22,6 @@
     body { 
       background-color: black; 
       color: white; 
-      /* bodyでの横スクロールバーは隠す */
       overflow-x: hidden;
     }
 
@@ -55,6 +53,38 @@
       animation: breathe 40s ease-in-out infinite;
       display: inline-block;
     }
+
+    /* ==========================================
+       裏パネルの特製デザイン (黒文字＋強い白発光)
+       ========================================== */
+    .h2-glow {
+      color: black;
+      /* 白い縁取りと、強く狭い白発光 */
+      -webkit-text-stroke: 1.5px white;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 1), 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+
+    .prev-btn {
+      border: 3px solid #00e5ff;
+      box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);
+      color: #00e5ff;
+    }
+
+    /* 右パネルのギミックボタン (通常シアン、タップで赤) */
+    .next-btn {
+      border: 3px solid #00e5ff;
+      box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);
+    }
+    .next-btn .text-normal { display: block; color: #00e5ff; }
+    .next-btn .text-active { display: none; color: #ff0000; }
+
+    /* タップ(アクティブ)時の変化 */
+    .next-btn:active {
+      border: 3px solid #ff0000;
+      box-shadow: 0 0 15px rgba(255,0,0,0.6), inset 0 0 15px rgba(255,0,0,0.6);
+    }
+    .next-btn:active .text-normal { display: none; }
+    .next-btn:active .text-active { display: block; }
   </style>
 </head>
 <body class="font-sans relative">
@@ -62,7 +92,7 @@
   <!-- --- ヘッダー領域 (常に画面上部に固定) --- -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 h-14 w-full">
     
-    <!-- 左: ロゴ画像 (完璧な位置 top-[-30px]、右上がり5度) -->
+    <!-- 左: ロゴ画像 -->
     <div class="relative z-20 flex items-center justify-start w-12">
       <img src="icon.PNG" alt="Logo" class="absolute top-[-30px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
     </div>
@@ -79,8 +109,6 @@
         <div class="w-px h-2.5 bg-[#444444]"></div>
         <span id="icon-jp" class="text-[11px] transition-opacity opacity-100">🇯🇵</span>
       </button>
-      
-      <!-- 🍙に呼吸アニメーション -->
       <div class="text-[18px] animate-breathe origin-center">🍙</div>
     </div>
   </header>
@@ -90,22 +118,22 @@
        ========================================== -->
   <div id="carousel" class="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar relative z-10" style="scroll-behavior: auto;">
 
-    <!-- --- 【ページ1】左側の裏パネル (PREV) --- -->
-    <!-- 右下がり斜め (rotate-[6deg]) -->
-    <section class="w-screen shrink-0 snap-center relative min-h-screen">
+    <!-- --- 【ページ1】左側のパネル (PREV) --- -->
+    <section class="w-screen shrink-0 snap-center relative min-h-screen bg-black">
       <div class="sticky top-[40vh] w-full flex flex-col items-center justify-center transform rotate-[6deg] z-0">
-        <h2 class="font-impact text-[42px] text-white tracking-wider mb-6 text-center leading-[0.9]" style="text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4);">
+        <!-- 黒文字＋白発光の見出し -->
+        <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
           BACK FOR<br>MORE?
         </h2>
-        <div class="border-[3px] border-[#00e5ff] bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);">
-            <span class="font-blackops text-[#00e5ff] text-[20px] tracking-widest uppercase">PREV FUNKY ★02</span>
+        <div class="prev-btn bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center">
+            <span class="font-blackops text-[20px] tracking-widest uppercase">PREV FUNKY ★02</span>
         </div>
+        <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">SWIPE LEFT TO CANCEL →</div>
       </div>
     </section>
 
     <!-- --- 【ページ2】メインコンテンツ (中央) --- -->
-    <section class="w-screen shrink-0 snap-center relative pb-20">
-      
+    <section class="w-screen shrink-0 snap-center relative pb-20 bg-black">
       <main class="w-full max-w-md mx-auto px-2 pt-20">
         
         <!-- ORIGIN OF FHW -->
@@ -153,7 +181,7 @@
           <!-- CRAFTED IN JAPAN & 印鑑 -->
           <div class="relative mt-2 pt-6 mb-4"> 
             
-            <!-- 右上の印鑑 (icon2.PNG) 完璧だった位置 -->
+            <!-- 右上の印鑑 (icon2.PNG) -->
             <div class="absolute right-[5%] top-[-35px] z-20 pointer-events-none">
               <img src="icon2.PNG" alt="Stamp" class="w-[80px] h-[80px] object-contain transform rotate-[-8deg] opacity-90 drop-shadow-md">
             </div>
@@ -162,12 +190,10 @@
             <div class="font-impact relative flex justify-center items-center tracking-[0.6em] pl-[0.6em] text-[#e5e5e5] text-[20px]">
               <span>CRAFTED</span>
               <span class="relative mx-[0.4em] flex items-center justify-center">
-                
-                <!-- 日の丸 (ベースサイズ36px + 呼吸アニメーション) -->
+                <!-- 日の丸 (呼吸アニメーション) -->
                 <div class="absolute z-0 transform -translate-x-[6px] flex items-center justify-center">
                   <div class="w-[36px] h-[36px] bg-[#ff0000] rounded-full blur-[2px] opacity-100 animate-breathe origin-center" style="box-shadow: 0 0 10px rgba(255,0,0,0.8);"></div>
                 </div>
-                
                 <span class="relative z-10 text-white">IN</span>
               </span>
               <span>JAPAN</span>
@@ -175,18 +201,14 @@
           </div>
         </div>
 
-        <!-- =========================================
-            ここから下の要素は全てImpactフォント適用
-            ========================================= -->
         <div class="font-impact">
 
           <!-- --- LOCAL ROOTS (マップと車) --- -->
-          <!-- z-index を調整して、はみ出た画像が左右のページから透けて見えるように！ -->
           <div class="relative w-full h-[280px] mb-10 px-2 mt-6 z-30">
             
             <!-- 愛知県マップ (aj.PNG) 
-                 ★「これだ！完璧💯」と仰っていただいた、超巨大(170%)でガッツリ見切れる配置！★ -->
-            <div class="absolute top-[-150px] left-[-200px] w-[170%] h-[170%] z-10 pointer-events-none">
+                 ★大きさは170%のまま！位置だけ少し右(-130px)に移動！★ -->
+            <div class="absolute top-[-150px] left-[-130px] w-[170%] h-[170%] z-10 pointer-events-none">
               <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
             </div>
 
@@ -204,8 +226,7 @@
               <div class="text-[#666666] text-xs tracking-widest font-bold text-right">LOCAL ROOTS</div>
             </div>
 
-            <!-- 車 (maru.PNG) 
-                 ★これも完璧だった、右にガッツリ見切れる配置！★ -->
+            <!-- 車 (maru.PNG) -->
             <div class="absolute bottom-[-10px] right-[-80px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
                <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
             </div>
@@ -219,14 +240,13 @@
           </div>
 
           <!-- --- シェア・ナビゲーションセクション --- -->
-          <!-- 背景を黒にして、下敷きの要素が透けないようにガード -->
           <div class="mt-10 mb-8 px-2 relative z-40 bg-black pt-4">
             <h2 class="text-center text-[#888888] text-2xl tracking-widest mb-6 uppercase">
               <span class="lang-ja">SHARE THIS MADNESS</span>
               <span class="lang-en">Share this madness</span>
             </h2>
 
-            <!-- シェアボタン群 (上段2つ) -->
+            <!-- シェアボタン群 -->
             <div class="grid grid-cols-2 gap-3 mb-3">
               <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#999999]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
@@ -235,7 +255,6 @@
                   <span class="lang-en">COPY LINK</span>
                 </span>
               </button>
-              
               <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="text-[#999999]"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
                 <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
@@ -267,41 +286,41 @@
               </button>
             </div>
           </div>
-
         </div> 
       </main>
     </section>
 
-    <!-- --- 【ページ3】右側の裏パネル (NEXT) --- -->
-    <!-- 左下がり斜め (-rotate-[6deg]) -->
-    <section class="w-screen shrink-0 snap-center relative min-h-screen">
+    <!-- --- 【ページ3】右側のパネル (NEXT) --- -->
+    <section class="w-screen shrink-0 snap-center relative min-h-screen bg-black">
       <div class="sticky top-[40vh] w-full flex flex-col items-center justify-center transform -rotate-[6deg] z-0">
-        <h2 class="font-impact text-[42px] text-white tracking-wider mb-6 text-center leading-[0.9]" style="text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4);">
+        <!-- 黒文字＋白発光の見出し -->
+        <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
           READY FOR<br>MORE MADNESS?
         </h2>
-        <div class="border-[3px] border-[#ff00aa] bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(255,0,170,0.4), inset 0 0 15px rgba(255,0,170,0.4);">
-            <span class="font-impact text-[#ff00aa] text-[26px] tracking-widest uppercase">STILL TUNING...</span>
-        </div>
+        <!-- ギミック付きボタン (タップすると赤枠・赤文字 STILL TUNING... に変化) -->
+        <button class="next-btn bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center outline-none cursor-pointer">
+            <span class="font-blackops text-[20px] tracking-widest uppercase text-normal">NEXT FUNKY ★04</span>
+            <span class="font-impact text-[26px] tracking-widest uppercase text-active">STILL TUNING...</span>
+        </button>
+        <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">← SWIPE RIGHT TO CANCEL</div>
       </div>
     </section>
 
   </div> <!-- End of carousel -->
 
   <!-- ==========================================
-       JavaScript処理 (初期位置セットなど)
+       JavaScript処理 (初期位置セット)
        ========================================== -->
   <script>
-    // ページ読み込み時に、3ページあるうちの「真ん中」のページにスクロール位置を合わせる
+    // ページ読み込み時に「真ん中のページ(AICHI 01)」を初期表示する
     window.addEventListener('load', () => {
       const carousel = document.getElementById('carousel');
-      // 画面1つ分(100vw)右にスクロールさせて、中央のメインページを表示
       carousel.scrollLeft = window.innerWidth;
     });
 
-    // 画面リサイズ時にも中央を維持するための処理
+    // 画面リサイズ時にも中央を維持
     window.addEventListener('resize', () => {
       const carousel = document.getElementById('carousel');
-      // 現在真ん中を見ているなら、リサイズ後も真ん中に合わせる
       if (carousel.scrollLeft > window.innerWidth * 0.5 && carousel.scrollLeft < window.innerWidth * 1.5) {
         carousel.scrollLeft = window.innerWidth;
       }
