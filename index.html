@@ -1,219 +1,280 @@
-import React, { useState } from 'react';
-import { Copy, Share2 } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AICHI ★01 - FHW</title>
+  
+  <!-- Tailwind CSS (CDN) の読み込み -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- 外部フォントの読み込み -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 基本フォント設定とタップハイライト無効化 */
+    .font-blackops { font-family: 'Black Ops One', system-ui; }
+    .font-impact { font-family: 'Impact', 'Arial Black', sans-serif; }
+    * { -webkit-tap-highlight-color: transparent; }
+    
+    body { background-color: black; color: white; overflow-x: hidden; }
 
-export default function App() {
-  const [isEnglish, setIsEnglish] = useState(false);
+    /* ==========================================
+       言語切り替え用のCSS
+       bodyに 'is-english' クラスがつくと英語が表示される
+       ========================================== */
+    .lang-en { display: none; }
+    .lang-ja { display: block; }
+    
+    body.is-english .lang-en { display: block; }
+    body.is-english .lang-ja { display: none; }
+    
+    /* インライン要素（spanなど）の切り替え用 */
+    span.lang-en { display: none; }
+    span.lang-ja { display: inline; }
+    body.is-english span.lang-en { display: inline; }
+    body.is-english span.lang-ja { display: none; }
+  </style>
+</head>
+<body class="font-sans pb-20">
 
-  // --- テキストデータ ---
-  const storyTexts = {
-    ja: [
-      { text: "愛知 ★01", color: "text-[#cccccc]", className: "mb-4" },
-      { text: "彼はレースが始まる前から\nもう勝った気でいる。\nスピードより先に、\n自信だけがゴールしている。", color: "text-[#cccccc]", className: "mb-6" },
-      { text: "アクセルは全開。\n頭の中は表彰台。\nだが現実はーー", color: "text-[#cccccc]", className: "mb-3" },
-      { text: "パンダに乗ったイヌに追われる。", color: "text-[#00ffff] font-bold drop-shadow-[0_0_8px_rgba(0,255,255,0.5)]", className: "mb-6" },
-      { text: "だがFHWでは、\nそんなもんでは止まらない。\nなぜなら彼は", color: "text-[#cccccc]", className: "mb-3" },
-      { text: "味噌で育っとるもんで。", color: "text-[#ccff00] font-bold drop-shadow-[0_0_8px_rgba(204,255,0,0.5)]", className: "mb-6" },
-      { text: "そしてこの街ではーー\n暴走すると\n参加賞がもらえる。", color: "text-[#cccccc]", className: "mb-6" },
-      { text: "愛知と言えば", color: "text-[#cccccc]", className: "mb-3" },
-      { text: "味噌カツだて。", color: "text-[#ff00aa] font-bold drop-shadow-[0_0_8px_rgba(255,0,170,0.5)]", className: "mb-2" },
-    ],
-    en: [
-      { text: "AICHI ★01", color: "text-[#cccccc]", className: "mb-4" },
-      { text: "He thinks he's already won\nbefore the race even starts.\nIn his world,\nconfidence crosses the finish line first.", color: "text-[#cccccc]", className: "mb-6" },
-      { text: "Throttle wide open.\nPodium already in his head.\nBut reality—", color: "text-[#cccccc]", className: "mb-3" },
-      { text: "a dog in a panda car is chasing him.", color: "text-[#00ffff] font-bold drop-shadow-[0_0_8px_rgba(0,255,255,0.5)]", className: "mb-6" },
-      { text: "But in FHW,\nthat's not enough to stop him.\nBecause he was", color: "text-[#cccccc]", className: "mb-3" },
-      { text: "raised on miso.", color: "text-[#ccff00] font-bold drop-shadow-[0_0_8px_rgba(204,255,0,0.5)]", className: "mb-6" },
-      { text: "And in this town—\nwhen you go full throttle,\nyou still get a participation prize.", color: "text-[#cccccc]", className: "mb-6" },
-      { text: "Because in Aichi,", color: "text-[#cccccc]", className: "mb-3" },
-      { text: "it's miso-katsu.", color: "text-[#ff00aa] font-bold drop-shadow-[0_0_8px_rgba(255,0,170,0.5)]", className: "mb-2" },
-    ]
-  };
-
-  const currentStory = isEnglish ? storyTexts.en : storyTexts.ja;
-
-  return (
-    <div className="min-h-screen bg-black text-white font-sans pb-20 overflow-x-hidden">
-      
-      {/* 外部フォント読み込み＆スマホのタップハイライト無効化 */}
-      <style dangerouslySetInnerHTML={{__html: `
-        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
-        .font-blackops { font-family: 'Black Ops One', system-ui; }
-        .font-impact { font-family: 'Impact', 'Arial Black', sans-serif; }
-        * { -webkit-tap-highlight-color: transparent; }
-      `}} />
-
-      {/* --- ヘッダー領域 --- */}
-      <header className="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 py-1.5 relative">
-        <div className="w-9 h-9 flex items-center justify-center relative z-10">
-          <div className="w-full h-full border border-[#333333] bg-[#111111] rounded-full flex items-center justify-center text-[8px] text-[#666666]">Logo</div>
-        </div>
-
-        <div 
-          className="absolute left-1/2 transform -translate-x-1/2 font-blackops text-[26px] z-0 whitespace-nowrap"
-          style={{ 
-            color: '#000000',
-            textShadow: '0 0 2px #00e5ff, 0 0 5px #00e5ff, 0 0 8px #00e5ff'
-          }}
-        >
-          AICHI ★01
-        </div>
-
-        <div className="flex items-center gap-2 relative z-10">
-          <button 
-            onClick={() => setIsEnglish(!isEnglish)}
-            className="flex items-center gap-1.5 bg-black border border-[#333333] rounded-full px-1.5 py-0.5 outline-none"
-          >
-            <span className={`text-[11px] transition-opacity ${!isEnglish ? 'opacity-30' : 'opacity-100'}`}>🇺🇸</span>
-            <div className="w-px h-2.5 bg-[#444444]"></div>
-            <span className={`text-[11px] transition-opacity ${isEnglish ? 'opacity-30' : 'opacity-100'}`}>🇯🇵</span>
-          </button>
-          <div className="text-[18px]">🍙</div>
-        </div>
-      </header>
-
-      {/* --- メインコンテンツ --- */}
-      <main className="max-w-md mx-auto px-2">
-        
-        {/* ORIGIN OF FHW */}
-        <div className="mt-10 mb-6 flex flex-col items-center justify-center font-blackops leading-[0.9]"
-             style={{ 
-               color: '#737373', 
-               textShadow: '0 0 12px rgba(180, 180, 180, 0.6)' 
-             }}>
-          <div className="text-[58px]">ORIGIN</div>
-          <div className="text-[48px]">OF</div>
-          <div className="text-[72px]">FHW</div>
-        </div>
-
-        {/* 四コマ漫画エリア (9:16比率 + シアン発光) */}
-        <div className="relative w-full px-2 mb-12">
-          <div className="absolute inset-2 bg-[#00e5ff] blur-[20px] opacity-20 rounded-lg"></div>
-          <div className="relative aspect-[9/16] bg-[#0a0a0a] border border-[#222222] rounded-sm flex flex-col justify-center items-center overflow-hidden z-10">
-            <span className="text-[#666666] mb-2">Comic Image Space (9:16)</span>
-          </div>
-        </div>
-
-        {/* --- ストーリーテキスト ＆ CRAFTED IN JAPAN エリア --- */}
-        <div className="relative mb-10 pl-3 border-l-[3px] border-[#ccff00] pb-2">
-          
-          {/* テキスト部分 */}
-          <div>
-            {currentStory.map((item, index) => (
-              <div key={index} className={`whitespace-pre-line tracking-wider text-[17px] leading-[1.8] ${item.color} ${item.className}`}>
-                {item.text}
-              </div>
-            ))}
-          </div>
-
-          {/* セパレーター的なロゴ (FHWプレースホルダー) */}
-          <div className="flex justify-end mt-2 mb-4 pr-2">
-            <div className="w-16 h-16 bg-[#111111] border border-[#222222] rounded-full flex items-center justify-center transform -rotate-12">
-              <span className="text-[10px] text-[#555555] font-bold">FHW Logo</span>
-            </div>
-          </div>
-
-          {/* CRAFTED IN JAPAN */}
-          <div className="font-impact relative flex justify-center items-center tracking-[0.6em] pl-[0.6em] text-[#e5e5e5] text-[20px]">
-            <span>CRAFTED</span>
-            
-            {/* IN の部分 (赤丸背景) */}
-            <span className="relative mx-[0.4em] flex items-center justify-center">
-              {/* 文字の右側にできる間隔を考慮して、-translate-x-[6px] で赤丸を少し左にずらす */}
-              <div className="absolute w-[42px] h-[42px] bg-[#ff0000] rounded-full blur-[2px] opacity-100 z-0 transform -translate-x-[6px]" style={{ boxShadow: '0 0 12px rgba(255,0,0,0.8)' }}></div>
-              <span className="relative z-10 text-white">IN</span>
-            </span>
-            
-            <span>JAPAN</span>
-          </div>
-
-        </div>
-
-        {/* =========================================
-            ここから下の要素は全てImpactフォント適用
-            ========================================= */}
-        <div className="font-impact">
-
-          {/* --- LOCAL ROOTS (マップと車) --- */}
-          <div className="relative w-full h-64 mb-16 px-2">
-            
-            {/* 左側: 愛知県マップの画像スペース */}
-            <div className="absolute top-0 left-0 w-3/5 h-full opacity-60 flex items-center justify-center">
-               <div className="w-full h-full bg-[#111111] rounded-3xl flex items-center justify-center border border-[#222222]">
-                 <span className="text-xs text-[#555555] font-sans">Map Image</span>
-               </div>
-            </div>
-
-            {/* マップ上の赤ターゲットマーク */}
-            <div className="absolute top-1/3 left-1/4 w-5 h-5 z-10">
-              <div className="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style={{ boxShadow: '0 0 4px #ff0033, inset 0 0 4px #ff0033' }}></div>
-              <div className="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style={{ boxShadow: '0 0 4px #ff0033' }}></div>
-              <div className="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style={{ boxShadow: '0 0 4px #ff0033' }}></div>
-            </div>
-
-            {/* 右上: 座標とテキスト */}
-            <div className="absolute top-0 right-0 text-right pr-2">
-              <div className="text-[#888888] text-sm tracking-wider">35.1850°N</div>
-              <div className="text-[#888888] text-sm tracking-wider mb-1">136.8997°E</div>
-              <div className="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
-            </div>
-
-            {/* 右下: 車の画像スペース */}
-            <div className="absolute bottom-0 right-0 w-2/3 h-4/5 z-20 flex items-end justify-end">
-               <div className="w-4/5 h-4/5 bg-[#111111] rounded-xl flex items-center justify-center border border-[#222222]">
-                 <span className="text-xs text-[#555555] font-sans">Car Image</span>
-               </div>
-            </div>
-
-            {/* 左下: AICHI JAPAN テキスト */}
-            <div className="absolute bottom-0 left-2 z-10 flex items-center gap-2">
-              <span className="text-[#888888] text-2xl tracking-wider">AICHI</span>
-              <span className="text-xl">🇯🇵</span>
-              <span className="text-[#888888] text-2xl tracking-wider">JAPAN</span>
-            </div>
-          </div>
-
-          {/* --- シェア・ナビゲーションセクション --- */}
-          <div className="mt-16 mb-8 px-2">
-            <h2 className="text-center text-[#888888] text-2xl tracking-widest mb-6 uppercase">
-              {isEnglish ? "Share this madness" : "SHARE THIS MADNESS"}
-            </h2>
-
-            {/* シェアボタン群 */}
-            <div className="grid grid-cols-2 gap-3 mb-3">
-              <button className="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-4 outline-none">
-                <Copy size={16} className="text-[#999999]" />
-                <span className="text-sm text-[#cccccc] font-sans font-bold">{isEnglish ? "COPY LINK" : "リンクをコピー"}</span>
-              </button>
-              <button className="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-4 outline-none">
-                <span className="text-lg text-[#999999] font-sans font-bold">𝕏</span>
-                <span className="text-sm text-[#cccccc] font-sans font-bold">{isEnglish ? "SHARE ON X" : "シェア"}</span>
-              </button>
-            </div>
-            <div className="flex justify-center mb-10">
-              <button className="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-8 outline-none w-1/2">
-                <span className="text-xl text-[#999999] font-serif font-bold italic">P</span>
-                <span className="text-sm text-[#cccccc] font-sans font-bold">{isEnglish ? "SHARE" : "シェア"}</span>
-              </button>
-            </div>
-
-            {/* ナビゲーションボタン */}
-            <div className="flex flex-col gap-3">
-              <button className="w-full bg-black border border-[#333333] py-5 text-center outline-none">
-                <span className="text-[#cccccc] tracking-widest text-xl">BACK TO WORLD MAP</span>
-              </button>
-              <button className="w-full bg-black border border-[#333333] border-l-[3px] border-l-[#00e5ff] py-5 text-center outline-none">
-                <span className="text-[#cccccc] tracking-widest text-xl">NEXT FUNKY ★04</span>
-              </button>
-            </div>
-          </div>
-
-        </div> 
-        {/* End of Impact font container */}
-
-      </main>
+  <!-- --- ヘッダー領域 --- -->
+  <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 py-1.5 relative">
+    
+    <!-- 左: ロゴ画像用スペース -->
+    <div class="w-9 h-9 flex items-center justify-center relative z-10">
+      <div class="w-full h-full border border-[#333333] bg-[#111111] rounded-full flex items-center justify-center text-[8px] text-[#666666]">Logo</div>
+      <!-- 画像を入れる場合は上のdivを消して下を使う -->
+      <!-- <img src="ロゴ画像パス" class="w-full h-full rounded-full border border-[#333333]"> -->
     </div>
-  );
-}
 
+    <!-- 中央: タイトル -->
+    <div 
+      class="absolute left-1/2 transform -translate-x-1/2 font-blackops text-[26px] z-0 whitespace-nowrap"
+      style="color: #000000; text-shadow: 0 0 2px #00e5ff, 0 0 5px #00e5ff, 0 0 8px #00e5ff;"
+    >
+      AICHI ★01
+    </div>
+
+    <!-- 右: 言語切り替え＆アイコン -->
+    <div class="flex items-center gap-2 relative z-10">
+      <button 
+        onclick="toggleLanguage()"
+        class="flex items-center gap-1.5 bg-black border border-[#333333] rounded-full px-1.5 py-0.5 outline-none cursor-pointer"
+      >
+        <span id="icon-us" class="text-[11px] transition-opacity opacity-30">🇺🇸</span>
+        <div class="w-px h-2.5 bg-[#444444]"></div>
+        <span id="icon-jp" class="text-[11px] transition-opacity opacity-100">🇯🇵</span>
+      </button>
+      <div class="text-[18px]">🍙</div>
+    </div>
+  </header>
+
+  <!-- --- メインコンテンツ --- -->
+  <main class="max-w-md mx-auto px-2">
+    
+    <!-- ORIGIN OF FHW -->
+    <div class="mt-10 mb-6 flex flex-col items-center justify-center font-blackops leading-[0.9]"
+         style="color: #737373; text-shadow: 0 0 12px rgba(180, 180, 180, 0.6);">
+      <div class="text-[58px]">ORIGIN</div>
+      <div class="text-[48px]">OF</div>
+      <div class="text-[72px]">FHW</div>
+    </div>
+
+    <!-- 四コマ漫画エリア (9:16比率 + シアン発光) -->
+    <div class="relative w-full px-2 mb-12">
+      <div class="absolute inset-2 bg-[#00e5ff] blur-[20px] opacity-20 rounded-lg"></div>
+      <div class="relative aspect-[9/16] bg-[#0a0a0a] border border-[#222222] rounded-sm flex flex-col justify-center items-center overflow-hidden z-10">
+        <span class="text-[#666666] mb-2">Comic Image Space (9:16)</span>
+        <!-- 画像を入れる場合はここ -->
+        <!-- <img src="漫画の画像パス" class="w-full h-full object-cover"> -->
+      </div>
+    </div>
+
+    <!-- --- ストーリーテキスト ＆ CRAFTED IN JAPAN エリア --- -->
+    <div class="relative mb-10 pl-3 border-l-[3px] border-[#ccff00] pb-2">
+      
+      <!-- テキスト部分 -->
+      <div class="tracking-wider text-[17px] leading-[1.8]">
+        
+        <!-- ================= 日本語テキスト ================= -->
+        <div class="lang-ja">
+          <div class="text-[#cccccc] mb-4">愛知 ★01</div>
+          <div class="text-[#cccccc] mb-6">彼はレースが始まる前から<br>もう勝った気でいる。<br>スピードより先に、<br>自信だけがゴールしている。</div>
+          <div class="text-[#cccccc] mb-3">アクセルは全開。<br>頭の中は表彰台。<br>だが現実はーー</div>
+          <div class="text-[#00ffff] font-bold mb-6" style="filter: drop-shadow(0 0 8px rgba(0,255,255,0.5));">パンダに乗ったイヌに追われる。</div>
+          <div class="text-[#cccccc] mb-3">だがFHWでは、<br>そんなもんでは止まらない。<br>なぜなら彼は</div>
+          <div class="text-[#ccff00] font-bold mb-6" style="filter: drop-shadow(0 0 8px rgba(204,255,0,0.5));">味噌で育っとるもんで。</div>
+          <div class="text-[#cccccc] mb-6">そしてこの街ではーー<br>暴走すると<br>参加賞がもらえる。</div>
+          <div class="text-[#cccccc] mb-3">愛知と言えば</div>
+          <div class="text-[#ff00aa] font-bold mb-2" style="filter: drop-shadow(0 0 8px rgba(255,0,170,0.5));">味噌カツだて。</div>
+        </div>
+
+        <!-- ================= 英語テキスト ================= -->
+        <div class="lang-en">
+          <div class="text-[#cccccc] mb-4">AICHI ★01</div>
+          <div class="text-[#cccccc] mb-6">He thinks he's already won<br>before the race even starts.<br>In his world,<br>confidence crosses the finish line first.</div>
+          <div class="text-[#cccccc] mb-3">Throttle wide open.<br>Podium already in his head.<br>But reality—</div>
+          <div class="text-[#00ffff] font-bold mb-6" style="filter: drop-shadow(0 0 8px rgba(0,255,255,0.5));">a dog in a panda car is chasing him.</div>
+          <div class="text-[#cccccc] mb-3">But in FHW,<br>that's not enough to stop him.<br>Because he was</div>
+          <div class="text-[#ccff00] font-bold mb-6" style="filter: drop-shadow(0 0 8px rgba(204,255,0,0.5));">raised on miso.</div>
+          <div class="text-[#cccccc] mb-6">And in this town—<br>when you go full throttle,<br>you still get a participation prize.</div>
+          <div class="text-[#cccccc] mb-3">Because in Aichi,</div>
+          <div class="text-[#ff00aa] font-bold mb-2" style="filter: drop-shadow(0 0 8px rgba(255,0,170,0.5));">it's miso-katsu.</div>
+        </div>
+      </div>
+
+      <!-- セパレーター的なロゴ (FHWプレースホルダー) -->
+      <div class="flex justify-end mt-2 mb-4 pr-2">
+        <div class="w-16 h-16 bg-[#111111] border border-[#222222] rounded-full flex items-center justify-center transform -rotate-12">
+          <span class="text-[10px] text-[#555555] font-bold">FHW Logo</span>
+          <!-- 画像を入れる場合はここ -->
+          <!-- <img src="ロゴ画像パス" class="w-full h-full"> -->
+        </div>
+      </div>
+
+      <!-- CRAFTED IN JAPAN -->
+      <div class="font-impact relative flex justify-center items-center tracking-[0.6em] pl-[0.6em] text-[#e5e5e5] text-[20px]">
+        <span>CRAFTED</span>
+        
+        <!-- IN の部分 (赤丸背景) -->
+        <span class="relative mx-[0.4em] flex items-center justify-center">
+          <div class="absolute w-[42px] h-[42px] bg-[#ff0000] rounded-full blur-[2px] opacity-100 z-0 transform -translate-x-[6px]" style="box-shadow: 0 0 12px rgba(255,0,0,0.8);"></div>
+          <span class="relative z-10 text-white">IN</span>
+        </span>
+        
+        <span>JAPAN</span>
+      </div>
+
+    </div>
+
+    <!-- =========================================
+        ここから下の要素は全てImpactフォント適用
+        ========================================= -->
+    <div class="font-impact">
+
+      <!-- --- LOCAL ROOTS (マップと車) --- -->
+      <div class="relative w-full h-64 mb-16 px-2">
+        
+        <!-- 左側: 愛知県マップの画像スペース -->
+        <div class="absolute top-0 left-0 w-3/5 h-full opacity-60 flex items-center justify-center">
+           <div class="w-full h-full bg-[#111111] rounded-3xl flex items-center justify-center border border-[#222222]">
+             <span class="text-xs text-[#555555] font-sans">Map Image</span>
+             <!-- <img src="マップ画像パス" class="absolute inset-0 w-full h-full object-contain"> -->
+           </div>
+        </div>
+
+        <!-- マップ上の赤ターゲットマーク -->
+        <div class="absolute top-1/3 left-1/4 w-5 h-5 z-10">
+          <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
+          <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
+          <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
+        </div>
+
+        <!-- 右上: 座標とテキスト -->
+        <div class="absolute top-0 right-0 text-right pr-2">
+          <div class="text-[#888888] text-sm tracking-wider">35.1850°N</div>
+          <div class="text-[#888888] text-sm tracking-wider mb-1">136.8997°E</div>
+          <div class="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
+        </div>
+
+        <!-- 右下: 車の画像スペース -->
+        <div class="absolute bottom-0 right-0 w-2/3 h-4/5 z-20 flex items-end justify-end">
+           <div class="w-4/5 h-4/5 bg-[#111111] rounded-xl flex items-center justify-center border border-[#222222]">
+             <span class="text-xs text-[#555555] font-sans">Car Image</span>
+             <!-- <img src="車画像パス" class="absolute bottom-0 right-0 w-full object-contain"> -->
+           </div>
+        </div>
+
+        <!-- 左下: AICHI JAPAN テキスト -->
+        <div class="absolute bottom-0 left-2 z-10 flex items-center gap-2">
+          <span class="text-[#888888] text-2xl tracking-wider">AICHI</span>
+          <span class="text-xl font-sans">🇯🇵</span>
+          <span class="text-[#888888] text-2xl tracking-wider">JAPAN</span>
+        </div>
+      </div>
+
+      <!-- --- シェア・ナビゲーションセクション --- -->
+      <div class="mt-16 mb-8 px-2">
+        <h2 class="text-center text-[#888888] text-2xl tracking-widest mb-6 uppercase">
+          <span class="lang-ja">SHARE THIS MADNESS</span>
+          <span class="lang-en">Share this madness</span>
+        </h2>
+
+        <!-- シェアボタン群 -->
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-4 outline-none">
+            <!-- コピーアイコン SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#999999]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            <span class="text-sm text-[#cccccc] font-sans font-bold">
+              <span class="lang-ja">リンクをコピー</span>
+              <span class="lang-en">COPY LINK</span>
+            </span>
+          </button>
+          
+          <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-4 outline-none">
+            <span class="text-lg text-[#999999] font-sans font-bold">𝕏</span>
+            <span class="text-sm text-[#cccccc] font-sans font-bold">
+              <span class="lang-ja">シェア</span>
+              <span class="lang-en">SHARE ON X</span>
+            </span>
+          </button>
+        </div>
+        
+        <div class="flex justify-center mb-10">
+          <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-8 outline-none w-1/2">
+            <span class="text-xl text-[#999999] font-serif font-bold italic">P</span>
+            <span class="text-sm text-[#cccccc] font-sans font-bold">
+              <span class="lang-ja">シェア</span>
+              <span class="lang-en">SHARE</span>
+            </span>
+          </button>
+        </div>
+
+        <!-- ナビゲーションボタン -->
+        <div class="flex flex-col gap-3">
+          <button class="w-full bg-black border border-[#333333] py-5 text-center outline-none">
+            <span class="text-[#cccccc] tracking-widest text-xl">BACK TO WORLD MAP</span>
+          </button>
+          <button class="w-full bg-black border border-[#333333] border-l-[3px] border-l-[#00e5ff] py-5 text-center outline-none">
+            <span class="text-[#cccccc] tracking-widest text-xl">NEXT FUNKY ★04</span>
+          </button>
+        </div>
+      </div>
+
+    </div> 
+    <!-- End of Impact font container -->
+
+  </main>
+
+  <!-- ==========================================
+       言語切り替え用 JavaScript
+       ========================================== -->
+  <script>
+    let isEnglish = false;
+    
+    function toggleLanguage() {
+      isEnglish = !isEnglish;
+      const body = document.body;
+      const iconUs = document.getElementById('icon-us');
+      const iconJp = document.getElementById('icon-jp');
+      
+      if (isEnglish) {
+        // 英語モードにする
+        body.classList.add('is-english');
+        iconUs.classList.replace('opacity-30', 'opacity-100');
+        iconJp.classList.replace('opacity-100', 'opacity-30');
+      } else {
+        // 日本語モードにする
+        body.classList.remove('is-english');
+        iconUs.classList.replace('opacity-100', 'opacity-30');
+        iconJp.classList.replace('opacity-30', 'opacity-100');
+      }
+    }
+  </script>
+
+</body>
+</html>
 
