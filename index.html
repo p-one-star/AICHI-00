@@ -41,9 +41,9 @@
   <!-- --- ヘッダー領域 --- -->
   <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 h-14 relative">
     
-    <!-- 左: ロゴ画像 (幅100px、ガッツリ上へ、右上がり5度。タップで1.1倍&右上がり12度) -->
+    <!-- 左: ロゴ画像 (さらに少し上へ移動) -->
     <div class="relative z-20 flex items-center justify-start w-12">
-      <img src="icon.PNG" alt="Logo" class="absolute top-[-15px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
+      <img src="icon.PNG" alt="Logo" class="absolute top-[-22px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
     </div>
 
     <!-- 中央: タイトル -->
@@ -110,7 +110,7 @@
       <!-- CRAFTED IN JAPAN & 印鑑 -->
       <div class="relative mt-2 pt-6 mb-4"> 
         
-        <!-- 右上の印鑑 (icon2.PNG) ほんの少しだけ上に移動 -->
+        <!-- 右上の印鑑 (icon2.PNG) -->
         <div class="absolute right-[5%] top-[-35px] z-20 pointer-events-none">
           <img src="icon2.PNG" alt="Stamp" class="w-[80px] h-[80px] object-contain transform rotate-[-8deg] opacity-90 drop-shadow-md">
         </div>
@@ -135,8 +135,8 @@
       <!-- --- LOCAL ROOTS (マップと車) --- -->
       <div class="relative w-full h-[280px] mb-10 px-2 mt-6">
         
-        <!-- 愛知県マップ (aj.PNG) 少し小さく、ガッツリ左＆少し上へ -->
-        <div class="absolute top-[-150px] left-[-200px] w-[170%] h-[170%] z-10 pointer-events-none">
+        <!-- 愛知県マップ (aj.PNG) さらに上へ、少し右へ移動 -->
+        <div class="absolute top-[-200px] left-[-140px] w-[170%] h-[170%] z-10 pointer-events-none">
           <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
         </div>
 
@@ -147,15 +147,15 @@
           <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
         </div>
 
-        <!-- 右上: 座標とテキスト (少し左へ移動) -->
-        <div class="absolute top-0 right-4 z-20">
+        <!-- 右上: 座標とテキスト (少し左へ、少し上へ移動) -->
+        <div class="absolute top-[-15px] right-8 z-20 pr-2">
           <div class="text-[#888888] text-sm tracking-wider">35.1850°N</div>
           <div class="text-[#888888] text-sm tracking-wider mb-1">136.8997°E</div>
           <div class="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
         </div>
 
-        <!-- 車 (maru.PNG) -->
-        <div class="absolute bottom-[-10px] right-[-50px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
+        <!-- 車 (maru.PNG) さらに少し右へ移動 -->
+        <div class="absolute bottom-[-10px] right-[-80px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
            <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
         </div>
 
