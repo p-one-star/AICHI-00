@@ -19,7 +19,7 @@
     .font-impact { font-family: 'Impact', 'Arial Black', sans-serif; }
     * { -webkit-tap-highlight-color: transparent; }
     
-    /* overflow-x: hidden は設定せず、横スワイプを自然に許容する */
+    /* overflow-x は指定せず、右スワイプではみ出たマシンを見れるようにする */
     body { background-color: black; color: white; }
 
     /* ==========================================
@@ -73,7 +73,7 @@
         <span id="icon-jp" class="text-[11px] transition-opacity opacity-100">🇯🇵</span>
       </button>
       
-      <!-- 🍙に呼吸アニメーションを追加！ -->
+      <!-- 🍙に呼吸アニメーション -->
       <div class="text-[18px] animate-breathe origin-center">🍙</div>
     </div>
   </header>
@@ -136,7 +136,7 @@
           <span>CRAFTED</span>
           <span class="relative mx-[0.4em] flex items-center justify-center">
             
-            <!-- 日の丸 (ベースサイズを36pxに少し小さくし、呼吸アニメーションを追加！) -->
+            <!-- 日の丸 (ベースサイズ36px + 呼吸アニメーション) -->
             <div class="absolute z-0 transform -translate-x-[6px] flex items-center justify-center">
               <div class="w-[36px] h-[36px] bg-[#ff0000] rounded-full blur-[2px] opacity-100 animate-breathe origin-center" style="box-shadow: 0 0 10px rgba(255,0,0,0.8);"></div>
             </div>
@@ -157,35 +157,33 @@
       <div class="relative w-full h-[280px] mb-10 px-2 mt-6">
         
         <!-- 愛知県マップ (aj.PNG) 
-             ★完璧だったサイズと位置に完全ロールバック！★ 
-             (はみ出しすぎない絶妙な見切れ具合) -->
-        <div class="absolute top-[-40px] left-[-10px] w-[115%] h-[115%] z-10 pointer-events-none">
+             ★最も完璧だった時のサイズと位置に完全復旧！★ -->
+        <div class="absolute top-[-120px] left-[-160px] w-[200%] h-[200%] z-10 pointer-events-none">
           <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
         </div>
 
         <!-- マップ上の赤ターゲットマーク (完璧だった位置) -->
-        <div class="absolute top-[18%] left-[22%] w-6 h-6 z-20">
+        <div class="absolute top-[10%] left-[5%] w-6 h-6 z-20">
           <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
           <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
           <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
         </div>
 
         <!-- 右上: 座標とテキスト (完璧だった位置) -->
-        <div class="absolute top-[-15px] right-8 z-20 pr-2">
+        <div class="absolute top-0 right-0 text-right z-20 pr-2">
           <div class="text-[#888888] text-sm tracking-wider">35.1850°N</div>
           <div class="text-[#888888] text-sm tracking-wider mb-1">136.8997°E</div>
           <div class="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
         </div>
 
         <!-- 車 (maru.PNG) 
-             ★完璧だったサイズと位置に完全ロールバック！★ 
-             (右にスワイプすると全体が見える絶妙なはみ出し) -->
-        <div class="absolute bottom-[-10px] right-[-80px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
+             ★最も完璧だった時のサイズと位置に完全復旧！★ -->
+        <div class="absolute bottom-[-10px] right-[-50px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
            <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
         </div>
 
         <!-- 左下: AICHI JAPAN テキスト (完璧だった位置) -->
-        <div class="absolute bottom-[10px] left-4 z-40 flex items-center gap-2">
+        <div class="absolute bottom-[-15px] left-4 z-40 flex items-center gap-2">
           <span class="text-[#888888] text-2xl tracking-wider">AICHI</span>
           <span class="text-xl font-sans">🇯🇵</span>
           <span class="text-[#888888] text-2xl tracking-wider">JAPAN</span>
@@ -193,15 +191,14 @@
       </div>
 
       <!-- --- シェア・ナビゲーションセクション --- -->
-      <div class="mt-10 mb-8 px-2">
+      <div class="mt-10 mb-8 px-2 relative z-40">
         <h2 class="text-center text-[#888888] text-2xl tracking-widest mb-6 uppercase">
           <span class="lang-ja">SHARE THIS MADNESS</span>
           <span class="lang-en">Share this madness</span>
         </h2>
 
-        <!-- シェアボタン群 (上段2つ) -->
+        <!-- シェアボタン群 -->
         <div class="grid grid-cols-2 gap-3 mb-3">
-          <!-- リンクをコピー -->
           <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#999999]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
             <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
@@ -210,7 +207,6 @@
             </span>
           </button>
           
-          <!-- Xでシェア -->
           <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="text-[#999999]"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
             <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
