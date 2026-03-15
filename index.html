@@ -63,9 +63,32 @@
       -webkit-text-stroke: 1.5px white;
       text-shadow: 0 0 8px rgba(255, 255, 255, 1), 0 0 15px rgba(255, 255, 255, 0.8);
     }
+
+    /* 左パネルボタン */
+    .prev-btn {
+      border: 3px solid #00e5ff;
+      box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);
+      color: #00e5ff;
+    }
+
+    /* 右パネルのギミックボタン (シアン統一、タップで文字変化) */
+    .next-btn {
+      border: 3px solid #00e5ff;
+      box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);
+      outline: none;
+    }
+    .next-btn .text-normal { display: block; color: #00e5ff; }
+    .next-btn .text-active { display: none; color: #00e5ff; } /* アクティブ時もシアン */
+
+    /* タップ(アクティブ)時の変化 */
+    .next-btn:active {
+      box-shadow: 0 0 25px rgba(0,229,255,0.8), inset 0 0 25px rgba(0,229,255,0.8);
+    }
+    .next-btn:active .text-normal { display: none; }
+    .next-btn:active .text-active { display: block; }
   </style>
 </head>
-<body class="font-sans relative">
+<body class="font-sans relative is-english">
 
   <!-- --- ヘッダー領域 (常に画面上部に固定) --- -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 h-14 w-full">
@@ -83,9 +106,9 @@
     <!-- 右: 言語切り替え＆アイコン -->
     <div class="flex items-center gap-2 relative z-10 ml-auto">
       <button onclick="toggleLanguage()" class="flex items-center gap-1.5 bg-black border border-[#333333] rounded-full px-1.5 py-0.5 outline-none cursor-pointer">
-        <span id="icon-us" class="text-[11px] transition-opacity opacity-30">🇺🇸</span>
+        <span id="icon-us" class="text-[11px] transition-opacity opacity-100">🇺🇸</span>
         <div class="w-px h-2.5 bg-[#444444]"></div>
-        <span id="icon-jp" class="text-[11px] transition-opacity opacity-100">🇯🇵</span>
+        <span id="icon-jp" class="text-[11px] transition-opacity opacity-30">🇯🇵</span>
       </button>
       
       <!-- 🍙に呼吸アニメーション -->
@@ -100,13 +123,15 @@
 
     <!-- --- 【ページ1】左側のパネル (PREV) --- -->
     <section class="w-screen shrink-0 snap-center relative bg-black">
-      <div class="sticky top-0 h-screen w-full flex flex-col items-center justify-center z-0 overflow-hidden">
+      <div id="left-panel-content" class="absolute top-0 w-full h-screen flex flex-col items-center justify-center z-0 overflow-hidden">
         <div class="transform rotate-[6deg] flex flex-col items-center justify-center">
+          <!-- 見出し: ?だけBlack Ops One、上に4pxズラして1.1倍に拡大 -->
           <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
-            BACK FOR<br>MORE?
+            BACK FOR<br>MORE<span class="font-blackops inline-block transform -translate-y-[4px] scale-[1.1] ml-1">?</span>
           </h2>
-          <div class="border-[3px] border-[#00e5ff] bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);">
-              <span class="font-blackops text-[#00e5ff] text-[20px] tracking-widest uppercase">PREV FUNKY ★02</span>
+          <!-- 枠内の文字: 矢印なし、1行、大きめ(26px) -->
+          <div class="prev-btn bg-black/50 backdrop-blur-sm px-4 py-5 mb-8 w-[320px] flex justify-center items-center">
+              <span class="font-blackops text-[26px] tracking-widest uppercase text-center w-full whitespace-nowrap">PREV FUNKY</span>
           </div>
           <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">SWIPE LEFT TO CANCEL →</div>
         </div>
@@ -186,10 +211,8 @@
 
           <!-- --- LOCAL ROOTS (マップと車) --- -->
           <div class="relative w-full h-[280px] mb-10 px-2 mt-6 z-30">
-            
-            <!-- 愛知県マップ (aj.PNG) 
-                 ★150%に縮小、10px下(top-[-125px])、15px右(left-[-110px])に移動★ -->
-            <div class="absolute top-[-125px] left-[-110px] w-[150%] h-[150%] z-10 pointer-events-none">
+            <!-- 愛知県マップ (aj.PNG) 完璧な位置 -->
+            <div class="absolute top-[-135px] left-[-110px] w-[155%] h-[155%] z-10 pointer-events-none">
               <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
             </div>
 
@@ -201,13 +224,14 @@
             </div>
 
             <!-- 右上: 座標とテキスト -->
-            <div class="absolute top-[-15px] right-8 z-20 pr-2">
-              <div class="text-[#888888] text-[16px] tracking-wider font-bold text-right">35.1850°N</div>
-              <div class="text-[#888888] text-[16px] tracking-wider font-bold mb-1 text-right">136.8997°E</div>
+            <div class="absolute top-[-15px] right-8 z-20 pr-2 flex flex-col items-end">
+              <div class="text-[#888888] text-[16px] tracking-wider font-bold text-right leading-tight">35.1850°N</div>
+              <div class="text-[#888888] text-[16px] tracking-wider font-bold text-right leading-tight">136.8997°E</div>
+              <div class="w-full h-[1.5px] bg-[#666666] my-1 opacity-80"></div>
               <div class="text-[#666666] text-xs tracking-widest font-bold text-right">LOCAL ROOTS</div>
             </div>
 
-            <!-- 車 (maru.PNG) -->
+            <!-- 車 (maru.PNG) 完璧な位置 -->
             <div class="absolute bottom-[-10px] right-[-80px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
                <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
             </div>
@@ -273,14 +297,17 @@
 
     <!-- --- 【ページ3】右側のパネル (NEXT) --- -->
     <section class="w-screen shrink-0 snap-center relative bg-black">
-      <div class="sticky top-0 h-screen w-full flex flex-col items-center justify-center z-0 overflow-hidden">
+      <div id="right-panel-content" class="absolute top-0 w-full h-screen flex flex-col items-center justify-center z-0 overflow-hidden">
         <div class="transform -rotate-[6deg] flex flex-col items-center justify-center">
+          <!-- 見出し: ?だけBlack Ops One、上に4pxズラして1.1倍に拡大 -->
           <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
-            READY FOR<br>MORE MADNESS?
+            READY FOR<br>MORE MADNESS<span class="font-blackops inline-block transform -translate-y-[4px] scale-[1.1] ml-1">?</span>
           </h2>
-          <div class="border-[3px] border-[#ff00aa] bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(255,0,170,0.4), inset 0 0 15px rgba(255,0,170,0.4);">
-              <span class="font-impact text-[#ff00aa] text-[26px] tracking-widest uppercase">STILL TUNING...</span>
-          </div>
+          <!-- 枠内の文字: 矢印なし、1行、大きめ(26px) -->
+          <button class="next-btn bg-black/50 backdrop-blur-sm px-4 py-5 mb-8 w-[320px] flex justify-center items-center">
+              <span class="font-blackops text-[26px] tracking-widest uppercase text-normal text-center w-full whitespace-nowrap">NEXT FUNKY</span>
+              <span class="font-blackops text-[26px] tracking-widest uppercase text-active text-center w-full whitespace-nowrap">STILL TUNING...</span>
+          </button>
           <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">← SWIPE RIGHT TO CANCEL</div>
         </div>
       </div>
@@ -289,20 +316,52 @@
   </div> <!-- End of carousel -->
 
   <!-- ==========================================
-       JavaScript処理 (初期位置セット)
+       JavaScript処理 (初期位置セット ＆ 縦スクロール追従)
        ========================================== -->
   <script>
-    // ページ読み込み時に「真ん中のページ(AICHI 01)」を初期表示する
+    let isEnglish = true;
+    function toggleLanguage() {
+      isEnglish = !isEnglish;
+      const body = document.body;
+      const iconUs = document.getElementById('icon-us');
+      const iconJp = document.getElementById('icon-jp');
+      if (isEnglish) {
+        body.classList.add('is-english');
+        iconUs.classList.replace('opacity-30', 'opacity-100');
+        iconJp.classList.replace('opacity-100', 'opacity-30');
+      } else {
+        body.classList.remove('is-english');
+        iconUs.classList.replace('opacity-100', 'opacity-30');
+        iconJp.classList.replace('opacity-30', 'opacity-100');
+      }
+    }
+
     window.addEventListener('load', () => {
       const carousel = document.getElementById('carousel');
       carousel.scrollLeft = window.innerWidth;
     });
 
-    // 画面リサイズ時にも中央を維持
     window.addEventListener('resize', () => {
       const carousel = document.getElementById('carousel');
       if (carousel.scrollLeft > window.innerWidth * 0.5 && carousel.scrollLeft < window.innerWidth * 1.5) {
         carousel.scrollLeft = window.innerWidth;
+      }
+    });
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const leftPanel = document.getElementById('left-panel-content');
+          const rightPanel = document.getElementById('right-panel-content');
+          
+          if (leftPanel) leftPanel.style.transform = `translateY(${scrollY}px)`;
+          if (rightPanel) rightPanel.style.transform = `translateY(${scrollY}px)`;
+          
+          ticking = false;
+        });
+        ticking = true;
       }
     });
   </script>
