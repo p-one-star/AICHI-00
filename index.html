@@ -41,9 +41,9 @@
   <!-- --- ヘッダー領域 --- -->
   <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 h-14 relative">
     
-    <!-- 左: ロゴ画像 (さらに少し上へ移動) -->
+    <!-- 左: ロゴ画像 (もう少し上へ移動) -->
     <div class="relative z-20 flex items-center justify-start w-12">
-      <img src="icon.PNG" alt="Logo" class="absolute top-[-22px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
+      <img src="icon.PNG" alt="Logo" class="absolute top-[-26px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
     </div>
 
     <!-- 中央: タイトル -->
@@ -135,32 +135,32 @@
       <!-- --- LOCAL ROOTS (マップと車) --- -->
       <div class="relative w-full h-[280px] mb-10 px-2 mt-6">
         
-        <!-- 愛知県マップ (aj.PNG) さらに上へ、少し右へ移動 -->
-        <div class="absolute top-[-200px] left-[-140px] w-[170%] h-[170%] z-10 pointer-events-none">
+        <!-- 愛知県マップ (aj.PNG) 少し小さくして下に移動 -->
+        <div class="absolute top-[-110px] left-[-90px] w-[140%] h-[140%] z-10 pointer-events-none">
           <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
         </div>
 
-        <!-- マップ上の赤ターゲットマーク (マップの位置に合わせて微調整) -->
-        <div class="absolute top-[10%] left-[10%] w-6 h-6 z-20">
+        <!-- マップ上の赤ターゲットマーク -->
+        <div class="absolute top-[15%] left-[12%] w-6 h-6 z-20">
           <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
           <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
           <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
         </div>
 
-        <!-- 右上: 座標とテキスト (少し左へ、少し上へ移動) -->
+        <!-- 右上: 座標とテキスト -->
         <div class="absolute top-[-15px] right-8 z-20 pr-2">
           <div class="text-[#888888] text-sm tracking-wider">35.1850°N</div>
           <div class="text-[#888888] text-sm tracking-wider mb-1">136.8997°E</div>
           <div class="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
         </div>
 
-        <!-- 車 (maru.PNG) さらに少し右へ移動 -->
+        <!-- 車 (maru.PNG) -->
         <div class="absolute bottom-[-10px] right-[-80px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
            <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
         </div>
 
-        <!-- 左下: AICHI JAPAN テキスト -->
-        <div class="absolute bottom-[-35px] left-4 z-40 flex items-center gap-2">
+        <!-- 左下: AICHI JAPAN テキスト (少し上に移動) -->
+        <div class="absolute bottom-[-5px] left-4 z-40 flex items-center gap-2">
           <span class="text-[#888888] text-2xl tracking-wider">AICHI</span>
           <span class="text-xl font-sans">🇯🇵</span>
           <span class="text-[#888888] text-2xl tracking-wider">JAPAN</span>
@@ -195,7 +195,6 @@
           </button>
         </div>
         
-        <!-- Pシェア -->
         <div class="flex justify-center mb-10">
           <button class="flex items-center justify-center gap-2.5 border border-[#333333] bg-black py-3 px-8 min-w-[160px] outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="18" height="18" fill="currentColor" class="text-[#999999]">
