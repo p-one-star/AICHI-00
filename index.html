@@ -59,22 +59,30 @@
   <!-- ==========================================
        裏パネル（スワイプした時に見えてくる）
        ========================================== -->
-  <!-- 左パネル (右にスワイプで出現) -->
+  <!-- 左パネル (右にスワイプで出現 / 右下がりの斜め) -->
   <div id="bg-nav-left" class="fixed inset-0 flex flex-col items-center justify-center z-0 opacity-0 pointer-events-none bg-black">
-    <h2 class="font-impact text-4xl text-white tracking-widest mb-8 text-center leading-tight" style="text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.4);">BACK FOR<br>MORE?</h2>
-    <div class="border-[3px] border-[#00e5ff] px-8 py-4 mb-8" style="box-shadow: 0 0 15px rgba(0,229,255,0.3), inset 0 0 15px rgba(0,229,255,0.3);">
-        <span class="font-blackops text-[#00e5ff] text-[20px] tracking-widest">PREV FUNKY ★02</span>
+    <div class="transform rotate-[6deg] flex flex-col items-center">
+      <h2 class="font-impact text-[42px] text-white tracking-wider mb-6 text-center leading-[0.9]" style="text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4);">
+        BACK FOR<br>MORE?
+      </h2>
+      <div class="border-[3px] border-[#00e5ff] px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);">
+          <span class="font-blackops text-[#00e5ff] text-[20px] tracking-widest">PREV FUNKY ★02</span>
+      </div>
+      <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">SWIPE LEFT TO CANCEL →</div>
     </div>
-    <div class="font-impact text-[#666666] text-sm tracking-widest uppercase">SWIPE LEFT TO CANCEL →</div>
   </div>
 
-  <!-- 右パネル (左にスワイプで出現) -->
+  <!-- 右パネル (左にスワイプで出現 / 左下がりの斜め) -->
   <div id="bg-nav-right" class="fixed inset-0 flex flex-col items-center justify-center z-0 opacity-0 pointer-events-none bg-black">
-    <h2 class="font-impact text-4xl text-white tracking-widest mb-8 text-center leading-tight" style="text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.4);">READY FOR<br>MORE MADNESS?</h2>
-    <div class="border-[3px] border-[#00e5ff] px-8 py-4 mb-8" style="box-shadow: 0 0 15px rgba(0,229,255,0.3), inset 0 0 15px rgba(0,229,255,0.3);">
-        <span class="font-blackops text-[#00e5ff] text-[20px] tracking-widest">NEXT FUNKY ★04</span>
+    <div class="transform -rotate-[6deg] flex flex-col items-center">
+      <h2 class="font-impact text-[42px] text-white tracking-wider mb-6 text-center leading-[0.9]" style="text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4);">
+        READY FOR<br>MORE MADNESS?
+      </h2>
+      <div class="border-[3px] border-[#ff00aa] px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(255,0,170,0.4), inset 0 0 15px rgba(255,0,170,0.4);">
+          <span class="font-impact text-[#ff00aa] text-[26px] tracking-widest uppercase">STILL TUNING...</span>
+      </div>
+      <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">← SWIPE RIGHT TO CANCEL</div>
     </div>
-    <div class="font-impact text-[#666666] text-sm tracking-widest uppercase">← SWIPE RIGHT TO CANCEL</div>
   </div>
 
   <!-- ==========================================
@@ -85,7 +93,7 @@
     <!-- --- ヘッダー領域 --- -->
     <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 h-14 relative">
       
-      <!-- 左: ロゴ画像 -->
+      <!-- 左: ロゴ画像 (完璧だった位置 top-[-32px]) -->
       <div class="relative z-20 flex items-center justify-start w-12">
         <img src="icon.PNG" alt="Logo" class="absolute top-[-32px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
       </div>
@@ -183,35 +191,37 @@
       <div class="font-impact">
 
         <!-- --- LOCAL ROOTS (マップと車) --- -->
-        <!-- メインラッパーごとスワイプされるので、ここでの要素は画面外にはみ出してOK -->
         <div class="relative w-full h-[280px] mb-10 px-2 mt-6">
           
-          <!-- 愛知県マップ (aj.PNG) 小さくして少し上へ。左端は見切れる -->
-          <div class="absolute top-[-30px] left-[-30px] w-[90%] h-[100%] z-10 pointer-events-none">
+          <!-- 愛知県マップ (aj.PNG) 
+               ★ご要望通り「少し大きく(210%)」して「ガッツリ上(top-[-160px])」へ！★ 
+               見切れの美学、完全復活です！ -->
+          <div class="absolute top-[-160px] left-[-160px] w-[210%] h-[210%] z-10 pointer-events-none">
             <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
           </div>
 
-          <!-- マップ上の赤ターゲットマーク -->
-          <div class="absolute top-[25%] left-[20%] w-6 h-6 z-20">
+          <!-- マップ上の赤ターゲットマーク (愛知県の位置に合わせて微調整) -->
+          <div class="absolute top-[10%] left-[10%] w-6 h-6 z-20">
             <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
             <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
             <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
           </div>
 
-          <!-- 右上: 座標とテキスト (文字を大きく、少し左に配置) -->
-          <div class="absolute top-[-10px] right-2 z-20 pr-2">
-            <div class="text-[#888888] text-[16px] font-bold tracking-wider text-right">35.1850°N</div>
-            <div class="text-[#888888] text-[16px] font-bold tracking-wider mb-1 text-right">136.8997°E</div>
-            <div class="text-[#666666] text-sm tracking-widest font-bold text-right">LOCAL ROOTS</div>
+          <!-- 右上: 座標とテキスト -->
+          <div class="absolute top-[-15px] right-8 z-20 pr-2">
+            <div class="text-[#888888] text-[16px] tracking-wider font-bold">35.1850°N</div>
+            <div class="text-[#888888] text-[16px] tracking-wider font-bold mb-1">136.8997°E</div>
+            <div class="text-[#666666] text-xs tracking-widest font-bold">LOCAL ROOTS</div>
           </div>
 
-          <!-- 車 (maru.PNG) そのまま右に見切れる配置 -->
+          <!-- 車 (maru.PNG) 
+               ★完璧だった時のサイズと位置をキープ！★ -->
           <div class="absolute bottom-[-10px] right-[-80px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
              <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
           </div>
 
           <!-- 左下: AICHI JAPAN テキスト -->
-          <div class="absolute bottom-[0px] left-4 z-40 flex items-center gap-2">
+          <div class="absolute bottom-[-10px] left-4 z-40 flex items-center gap-2">
             <span class="text-[#888888] text-2xl tracking-wider">AICHI</span>
             <span class="text-xl font-sans">🇯🇵</span>
             <span class="text-[#888888] text-2xl tracking-wider">JAPAN</span>
@@ -225,7 +235,7 @@
             <span class="lang-en">Share this madness</span>
           </h2>
 
-          <!-- シェアボタン群 (上段2つ) -->
+          <!-- シェアボタン群 -->
           <div class="grid grid-cols-2 gap-3 mb-3">
             <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#999999]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
@@ -244,7 +254,6 @@
             </button>
           </div>
           
-          <!-- Pシェア -->
           <div class="flex justify-center mb-10">
             <button class="flex items-center justify-center gap-2.5 border border-[#333333] bg-black py-3 px-8 min-w-[160px] outline-none">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="18" height="18" fill="currentColor" class="text-[#999999]">
@@ -258,7 +267,7 @@
           </div>
 
           <!-- ナビゲーションボタン -->
-          <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-3 w-full">
             <button class="w-full bg-black border border-[#333333] py-5 text-center outline-none">
               <span class="text-[#cccccc] tracking-widest text-xl">BACK TO WORLD MAP</span>
             </button>
@@ -273,7 +282,7 @@
   </div> <!-- End of main-wrapper -->
 
   <!-- ==========================================
-       JavaScript処理
+       JavaScript処理 (スワイプ機能など)
        ========================================== -->
   <script>
     // 1. 言語切り替え機能
@@ -294,7 +303,7 @@
       }
     }
 
-    // 2. 超絶スワイプ＆裏パネルギミック機能
+    // 2. 超絶スワイプ＆裏パネルギミック機能 (アラート削除版)
     const mainWrapper = document.getElementById('main-wrapper');
     const bgNavLeft = document.getElementById('bg-nav-left');
     const bgNavRight = document.getElementById('bg-nav-right');
@@ -303,8 +312,8 @@
     let startY = 0;
     let currentX = 0;
     let isDragging = false;
-    let isScrolling = false; // 縦スクロール中かどうかの判定フラグ
-    const threshold = window.innerWidth * 0.35; // 遷移とみなすスワイプ距離（画面幅の35%）
+    let isScrolling = false; 
+    const threshold = window.innerWidth * 0.35; 
 
     // タッチ開始
     mainWrapper.addEventListener('touchstart', (e) => {
@@ -312,7 +321,7 @@
         startY = e.touches[0].clientY;
         isDragging = true;
         isScrolling = false;
-        mainWrapper.style.transition = 'none'; // ドラッグ中はアニメーションを無効化して指に追従
+        mainWrapper.style.transition = 'none'; 
     }, { passive: true });
 
     // タッチ移動（スワイプ中）
@@ -324,34 +333,24 @@
         const deltaX = touchX - startX;
         const deltaY = touchY - startY;
 
-        // 最初のアクションで「縦スクロール」か「横スワイプ」かを判定
         if (!isScrolling && Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
-            // 縦スクロールと判定したら横スワイプの処理をキャンセル
             isDragging = false;
             return;
         }
 
-        // 横スワイプと判定された場合
         if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
             isScrolling = true;
-            // 縦スクロールやブラウザの「戻る」操作を防ぐ
             if (e.cancelable) e.preventDefault();
 
             currentX = deltaX;
-            
-            // 指の動きに対して0.6倍の抵抗感を持たせる（重みのあるスワイプ感）
             let moveX = currentX * 0.6;
             
-            // メイン画面を横にずらす！隠れていた車や地図が見える！
             mainWrapper.style.transform = `translateX(${moveX}px)`;
 
-            // 裏のパネルを透かして表示する
             if (moveX > 0) { 
-                // 右スワイプ -> 左の「PREV」パネルをフェードイン
                 bgNavLeft.style.opacity = Math.min(moveX / threshold, 1).toString();
                 bgNavRight.style.opacity = '0';
             } else { 
-                // 左スワイプ -> 右の「NEXT」パネルをフェードイン
                 bgNavLeft.style.opacity = '0';
                 bgNavRight.style.opacity = Math.min(Math.abs(moveX) / threshold, 1).toString();
             }
@@ -367,29 +366,26 @@
 
         isDragging = false;
         isScrolling = false;
-        // 指を離した後はアニメーションを有効にする
         mainWrapper.style.transition = 'transform 0.3s ease-out';
 
         if (currentX > threshold) {
-            // 右へスワイプ完了（PREVへ遷移）
+            // 右へスワイプ完了（PREV側へ飛んでから戻る演出のみ）
             mainWrapper.style.transform = `translateX(${window.innerWidth}px)`;
             setTimeout(() => {
-                alert("前のページ (PREV FUNKY ★02) へ遷移します！");
-                // デモ用: アラート後に元の位置に戻す
+                // アラートは出さずにスッと元に戻す
                 mainWrapper.style.transform = `translateX(0)`;
                 bgNavLeft.style.opacity = '0';
-            }, 300);
+            }, 400);
         } else if (currentX < -threshold) {
-            // 左へスワイプ完了（NEXTへ遷移）
+            // 左へスワイプ完了（NEXT側へ飛んでから戻る演出のみ）
             mainWrapper.style.transform = `translateX(-${window.innerWidth}px)`;
             setTimeout(() => {
-                alert("次のページ (NEXT FUNKY ★04) へ遷移します！");
-                // デモ用: アラート後に元の位置に戻す
+                // アラートは出さずにスッと元に戻す
                 mainWrapper.style.transform = `translateX(0)`;
                 bgNavRight.style.opacity = '0';
-            }, 300);
+            }, 400);
         } else {
-            // 閾値に達していなければ、キャンセルしてゴムのように元の位置に戻る
+            // 閾値に達していなければキャンセル
             mainWrapper.style.transform = `translateX(0)`;
             bgNavLeft.style.opacity = '0';
             bgNavRight.style.opacity = '0';
