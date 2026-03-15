@@ -100,10 +100,8 @@
 
     <!-- --- 【ページ1】左側のパネル (PREV) --- -->
     <section class="w-screen shrink-0 snap-center relative bg-black">
-      <!-- ★ここが魔法！どれだけ下へスクロールしていても、画面中央に追従する設定！★ -->
       <div class="sticky top-0 h-screen w-full flex flex-col items-center justify-center z-0 overflow-hidden">
         <div class="transform rotate-[6deg] flex flex-col items-center justify-center">
-          <!-- 黒文字＋白発光の見出し -->
           <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
             BACK FOR<br>MORE?
           </h2>
@@ -190,12 +188,12 @@
           <div class="relative w-full h-[280px] mb-10 px-2 mt-6 z-30">
             
             <!-- 愛知県マップ (aj.PNG) 
-                 ★位置はキープしたまま、ほんの少し小さく(160%)！★ -->
-            <div class="absolute top-[-140px] left-[-125px] w-[160%] h-[160%] z-10 pointer-events-none">
+                 ★155%に縮小し、5px下にズラしました(top-[-135px])★ -->
+            <div class="absolute top-[-135px] left-[-125px] w-[155%] h-[155%] z-10 pointer-events-none">
               <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
             </div>
 
-            <!-- マップ上の赤ターゲットマーク (マップの縮小に合わせて微調整) -->
+            <!-- マップ上の赤ターゲットマーク -->
             <div class="absolute top-[12%] left-[12%] w-6 h-6 z-20">
               <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
               <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
@@ -275,14 +273,11 @@
 
     <!-- --- 【ページ3】右側のパネル (NEXT) --- -->
     <section class="w-screen shrink-0 snap-center relative bg-black">
-      <!-- ★ここも！どれだけ下へスクロールしていても画面中央に追従する設定★ -->
       <div class="sticky top-0 h-screen w-full flex flex-col items-center justify-center z-0 overflow-hidden">
         <div class="transform -rotate-[6deg] flex flex-col items-center justify-center">
-          <!-- 黒文字＋白発光の見出し -->
           <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
             READY FOR<br>MORE MADNESS?
           </h2>
-          <!-- 見本通りのピンク枠・ピンク文字ボタン -->
           <div class="border-[3px] border-[#ff00aa] bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(255,0,170,0.4), inset 0 0 15px rgba(255,0,170,0.4);">
               <span class="font-impact text-[#ff00aa] text-[26px] tracking-widest uppercase">STILL TUNING...</span>
           </div>
