@@ -63,28 +63,6 @@
       -webkit-text-stroke: 1.5px white;
       text-shadow: 0 0 8px rgba(255, 255, 255, 1), 0 0 15px rgba(255, 255, 255, 0.8);
     }
-
-    .prev-btn {
-      border: 3px solid #00e5ff;
-      box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);
-      color: #00e5ff;
-    }
-
-    /* 右パネルのギミックボタン (通常シアン、タップで赤) */
-    .next-btn {
-      border: 3px solid #00e5ff;
-      box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);
-    }
-    .next-btn .text-normal { display: block; color: #00e5ff; }
-    .next-btn .text-active { display: none; color: #ff0000; }
-
-    /* タップ(アクティブ)時の変化 */
-    .next-btn:active {
-      border: 3px solid #ff0000;
-      box-shadow: 0 0 15px rgba(255,0,0,0.6), inset 0 0 15px rgba(255,0,0,0.6);
-    }
-    .next-btn:active .text-normal { display: none; }
-    .next-btn:active .text-active { display: block; }
   </style>
 </head>
 <body class="font-sans relative">
@@ -109,6 +87,8 @@
         <div class="w-px h-2.5 bg-[#444444]"></div>
         <span id="icon-jp" class="text-[11px] transition-opacity opacity-100">🇯🇵</span>
       </button>
+      
+      <!-- 🍙に呼吸アニメーション -->
       <div class="text-[18px] animate-breathe origin-center">🍙</div>
     </div>
   </header>
@@ -119,16 +99,19 @@
   <div id="carousel" class="flex w-full h-full overflow-x-auto snap-x snap-mandatory hide-scrollbar relative z-10" style="scroll-behavior: auto;">
 
     <!-- --- 【ページ1】左側のパネル (PREV) --- -->
-    <section class="w-screen shrink-0 snap-center relative min-h-screen bg-black">
-      <div class="sticky top-[40vh] w-full flex flex-col items-center justify-center transform rotate-[6deg] z-0">
-        <!-- 黒文字＋白発光の見出し -->
-        <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
-          BACK FOR<br>MORE?
-        </h2>
-        <div class="prev-btn bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center">
-            <span class="font-blackops text-[20px] tracking-widest uppercase">PREV FUNKY ★02</span>
+    <section class="w-screen shrink-0 snap-center relative bg-black">
+      <!-- ★ここが魔法！どれだけ下へスクロールしていても、画面中央に追従する設定！★ -->
+      <div class="sticky top-0 h-screen w-full flex flex-col items-center justify-center z-0 overflow-hidden">
+        <div class="transform rotate-[6deg] flex flex-col items-center justify-center">
+          <!-- 黒文字＋白発光の見出し -->
+          <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
+            BACK FOR<br>MORE?
+          </h2>
+          <div class="border-[3px] border-[#00e5ff] bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(0,229,255,0.4), inset 0 0 15px rgba(0,229,255,0.4);">
+              <span class="font-blackops text-[#00e5ff] text-[20px] tracking-widest uppercase">PREV FUNKY ★02</span>
+          </div>
+          <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">SWIPE LEFT TO CANCEL →</div>
         </div>
-        <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">SWIPE LEFT TO CANCEL →</div>
       </div>
     </section>
 
@@ -207,13 +190,13 @@
           <div class="relative w-full h-[280px] mb-10 px-2 mt-6 z-30">
             
             <!-- 愛知県マップ (aj.PNG) 
-                 ★大きさは170%のまま！位置だけ少し右(-130px)に移動！★ -->
-            <div class="absolute top-[-150px] left-[-130px] w-[170%] h-[170%] z-10 pointer-events-none">
+                 ★位置はキープしたまま、ほんの少し小さく(160%)！★ -->
+            <div class="absolute top-[-140px] left-[-125px] w-[160%] h-[160%] z-10 pointer-events-none">
               <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
             </div>
 
-            <!-- マップ上の赤ターゲットマーク -->
-            <div class="absolute top-[10%] left-[10%] w-6 h-6 z-20">
+            <!-- マップ上の赤ターゲットマーク (マップの縮小に合わせて微調整) -->
+            <div class="absolute top-[12%] left-[12%] w-6 h-6 z-20">
               <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
               <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
               <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
@@ -291,18 +274,20 @@
     </section>
 
     <!-- --- 【ページ3】右側のパネル (NEXT) --- -->
-    <section class="w-screen shrink-0 snap-center relative min-h-screen bg-black">
-      <div class="sticky top-[40vh] w-full flex flex-col items-center justify-center transform -rotate-[6deg] z-0">
-        <!-- 黒文字＋白発光の見出し -->
-        <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
-          READY FOR<br>MORE MADNESS?
-        </h2>
-        <!-- ギミック付きボタン (タップすると赤枠・赤文字 STILL TUNING... に変化) -->
-        <button class="next-btn bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center outline-none cursor-pointer">
-            <span class="font-blackops text-[20px] tracking-widest uppercase text-normal">NEXT FUNKY ★04</span>
-            <span class="font-impact text-[26px] tracking-widest uppercase text-active">STILL TUNING...</span>
-        </button>
-        <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">← SWIPE RIGHT TO CANCEL</div>
+    <section class="w-screen shrink-0 snap-center relative bg-black">
+      <!-- ★ここも！どれだけ下へスクロールしていても画面中央に追従する設定★ -->
+      <div class="sticky top-0 h-screen w-full flex flex-col items-center justify-center z-0 overflow-hidden">
+        <div class="transform -rotate-[6deg] flex flex-col items-center justify-center">
+          <!-- 黒文字＋白発光の見出し -->
+          <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
+            READY FOR<br>MORE MADNESS?
+          </h2>
+          <!-- 見本通りのピンク枠・ピンク文字ボタン -->
+          <div class="border-[3px] border-[#ff00aa] bg-black/50 backdrop-blur-sm px-10 py-5 mb-8 w-[320px] flex justify-center items-center" style="box-shadow: 0 0 15px rgba(255,0,170,0.4), inset 0 0 15px rgba(255,0,170,0.4);">
+              <span class="font-impact text-[#ff00aa] text-[26px] tracking-widest uppercase">STILL TUNING...</span>
+          </div>
+          <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">← SWIPE RIGHT TO CANCEL</div>
+        </div>
       </div>
     </section>
 
