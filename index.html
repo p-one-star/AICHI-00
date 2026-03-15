@@ -23,7 +23,6 @@
 
     /* ==========================================
        言語切り替え用のCSS
-       bodyに 'is-english' クラスがつくと英語が表示される
        ========================================== */
     .lang-en { display: none; }
     .lang-ja { display: block; }
@@ -31,7 +30,6 @@
     body.is-english .lang-en { display: block; }
     body.is-english .lang-ja { display: none; }
     
-    /* インライン要素（spanなど）の切り替え用 */
     span.lang-en { display: none; }
     span.lang-ja { display: inline; }
     body.is-english span.lang-en { display: inline; }
@@ -43,27 +41,19 @@
   <!-- --- ヘッダー領域 --- -->
   <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 py-1.5 relative">
     
-    <!-- 左: ロゴ画像用スペース -->
-    <div class="w-9 h-9 flex items-center justify-center relative z-10">
-      <div class="w-full h-full border border-[#333333] bg-[#111111] rounded-full flex items-center justify-center text-[8px] text-[#666666]">Logo</div>
-      <!-- 画像を入れる場合は上のdivを消して下を使う -->
-      <!-- <img src="ロゴ画像パス" class="w-full h-full rounded-full border border-[#333333]"> -->
+    <!-- 左: ロゴ画像 (幅100px、下10px、右5度 / タップで1.1倍＆12度) -->
+    <div class="relative z-10 flex items-center shrink-0">
+      <img src="icon.PNG" alt="Logo" class="w-[100px] transform translate-y-[10px] rotate-[5deg] transition-transform duration-200 active:scale-110 active:rotate-[12deg] cursor-pointer select-none">
     </div>
 
     <!-- 中央: タイトル -->
-    <div 
-      class="absolute left-1/2 transform -translate-x-1/2 font-blackops text-[26px] z-0 whitespace-nowrap"
-      style="color: #000000; text-shadow: 0 0 2px #00e5ff, 0 0 5px #00e5ff, 0 0 8px #00e5ff;"
-    >
+    <div class="absolute left-1/2 transform -translate-x-1/2 font-blackops text-[26px] z-0 whitespace-nowrap" style="color: #000000; text-shadow: 0 0 2px #00e5ff, 0 0 5px #00e5ff, 0 0 8px #00e5ff;">
       AICHI ★01
     </div>
 
     <!-- 右: 言語切り替え＆アイコン -->
     <div class="flex items-center gap-2 relative z-10">
-      <button 
-        onclick="toggleLanguage()"
-        class="flex items-center gap-1.5 bg-black border border-[#333333] rounded-full px-1.5 py-0.5 outline-none cursor-pointer"
-      >
+      <button onclick="toggleLanguage()" class="flex items-center gap-1.5 bg-black border border-[#333333] rounded-full px-1.5 py-0.5 outline-none cursor-pointer">
         <span id="icon-us" class="text-[11px] transition-opacity opacity-30">🇺🇸</span>
         <div class="w-px h-2.5 bg-[#444444]"></div>
         <span id="icon-jp" class="text-[11px] transition-opacity opacity-100">🇯🇵</span>
@@ -76,30 +66,23 @@
   <main class="max-w-md mx-auto px-2">
     
     <!-- ORIGIN OF FHW -->
-    <div class="mt-10 mb-6 flex flex-col items-center justify-center font-blackops leading-[0.9]"
-         style="color: #737373; text-shadow: 0 0 12px rgba(180, 180, 180, 0.6);">
+    <div class="mt-10 mb-6 flex flex-col items-center justify-center font-blackops leading-[0.9]" style="color: #c0c0c0; text-shadow: 0 0 3px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);">
       <div class="text-[58px]">ORIGIN</div>
       <div class="text-[48px]">OF</div>
       <div class="text-[72px]">FHW</div>
     </div>
 
-    <!-- 四コマ漫画エリア (9:16比率 + シアン発光) -->
+    <!-- 四コマ漫画エリア (画像を挿入) -->
     <div class="relative w-full px-2 mb-12">
       <div class="absolute inset-2 bg-[#00e5ff] blur-[20px] opacity-20 rounded-lg"></div>
       <div class="relative aspect-[9/16] bg-[#0a0a0a] border border-[#222222] rounded-sm flex flex-col justify-center items-center overflow-hidden z-10">
-        <span class="text-[#666666] mb-2">Comic Image Space (9:16)</span>
-        <!-- 画像を入れる場合はここ -->
-        <!-- <img src="漫画の画像パス" class="w-full h-full object-cover"> -->
+        <img src="AICHI.jpeg" alt="AICHI Comic" class="w-full h-full object-cover">
       </div>
     </div>
 
     <!-- --- ストーリーテキスト ＆ CRAFTED IN JAPAN エリア --- -->
     <div class="relative mb-10 pl-3 border-l-[3px] border-[#ccff00] pb-2">
-      
-      <!-- テキスト部分 -->
       <div class="tracking-wider text-[17px] leading-[1.8]">
-        
-        <!-- ================= 日本語テキスト ================= -->
         <div class="lang-ja">
           <div class="text-[#cccccc] mb-4">愛知 ★01</div>
           <div class="text-[#cccccc] mb-6">彼はレースが始まる前から<br>もう勝った気でいる。<br>スピードより先に、<br>自信だけがゴールしている。</div>
@@ -111,8 +94,6 @@
           <div class="text-[#cccccc] mb-3">愛知と言えば</div>
           <div class="text-[#ff00aa] font-bold mb-2" style="filter: drop-shadow(0 0 8px rgba(255,0,170,0.5));">味噌カツだて。</div>
         </div>
-
-        <!-- ================= 英語テキスト ================= -->
         <div class="lang-en">
           <div class="text-[#cccccc] mb-4">AICHI ★01</div>
           <div class="text-[#cccccc] mb-6">He thinks he's already won<br>before the race even starts.<br>In his world,<br>confidence crosses the finish line first.</div>
@@ -126,12 +107,10 @@
         </div>
       </div>
 
-      <!-- セパレーター的なロゴ (FHWプレースホルダー) -->
+      <!-- セパレーター的なロゴ -->
       <div class="flex justify-end mt-2 mb-4 pr-2">
         <div class="w-16 h-16 bg-[#111111] border border-[#222222] rounded-full flex items-center justify-center transform -rotate-12">
-          <span class="text-[10px] text-[#555555] font-bold">FHW Logo</span>
-          <!-- 画像を入れる場合はここ -->
-          <!-- <img src="ロゴ画像パス" class="w-full h-full"> -->
+          <span class="text-[10px] text-[#555555] font-bold">FHW</span>
         </div>
       </div>
 
@@ -139,15 +118,14 @@
       <div class="font-impact relative flex justify-center items-center tracking-[0.6em] pl-[0.6em] text-[#e5e5e5] text-[20px]">
         <span>CRAFTED</span>
         
-        <!-- IN の部分 (赤丸背景) -->
+        <!-- IN の部分 (印鑑画像に変更) -->
         <span class="relative mx-[0.4em] flex items-center justify-center">
-          <div class="absolute w-[42px] h-[42px] bg-[#ff0000] rounded-full blur-[2px] opacity-100 z-0 transform -translate-x-[6px]" style="box-shadow: 0 0 12px rgba(255,0,0,0.8);"></div>
+          <img src="icon2.PNG" alt="stamp" class="absolute w-[50px] h-[50px] z-0 transform -translate-x-[6px] object-contain">
           <span class="relative z-10 text-white">IN</span>
         </span>
         
         <span>JAPAN</span>
       </div>
-
     </div>
 
     <!-- =========================================
@@ -158,12 +136,9 @@
       <!-- --- LOCAL ROOTS (マップと車) --- -->
       <div class="relative w-full h-64 mb-16 px-2">
         
-        <!-- 左側: 愛知県マップの画像スペース -->
-        <div class="absolute top-0 left-0 w-3/5 h-full opacity-60 flex items-center justify-center">
-           <div class="w-full h-full bg-[#111111] rounded-3xl flex items-center justify-center border border-[#222222]">
-             <span class="text-xs text-[#555555] font-sans">Map Image</span>
-             <!-- <img src="マップ画像パス" class="absolute inset-0 w-full h-full object-contain"> -->
-           </div>
+        <!-- 左側: 愛知県マップ (画像を挿入) -->
+        <div class="absolute top-0 left-0 w-[65%] h-full opacity-60 flex items-center justify-center">
+           <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-center">
         </div>
 
         <!-- マップ上の赤ターゲットマーク -->
@@ -180,12 +155,9 @@
           <div class="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
         </div>
 
-        <!-- 右下: 車の画像スペース -->
-        <div class="absolute bottom-0 right-0 w-2/3 h-4/5 z-20 flex items-end justify-end">
-           <div class="w-4/5 h-4/5 bg-[#111111] rounded-xl flex items-center justify-center border border-[#222222]">
-             <span class="text-xs text-[#555555] font-sans">Car Image</span>
-             <!-- <img src="車画像パス" class="absolute bottom-0 right-0 w-full object-contain"> -->
-           </div>
+        <!-- 右下: 車 (画像を挿入、はみ出し気味に配置) -->
+        <div class="absolute bottom-[0px] right-[-10px] w-2/3 h-[110%] z-20 flex items-end justify-end pointer-events-none">
+           <img src="maru.PNG" alt="Car" class="w-full object-contain object-right-bottom drop-shadow-2xl">
         </div>
 
         <!-- 左下: AICHI JAPAN テキスト -->
@@ -205,18 +177,17 @@
 
         <!-- シェアボタン群 -->
         <div class="grid grid-cols-2 gap-3 mb-3">
-          <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-4 outline-none">
-            <!-- コピーアイコン SVG -->
+          <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#999999]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-            <span class="text-sm text-[#cccccc] font-sans font-bold">
+            <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
               <span class="lang-ja">リンクをコピー</span>
               <span class="lang-en">COPY LINK</span>
             </span>
           </button>
           
-          <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-4 outline-none">
-            <span class="text-lg text-[#999999] font-sans font-bold">𝕏</span>
-            <span class="text-sm text-[#cccccc] font-sans font-bold">
+          <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="text-[#999999]"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
               <span class="lang-ja">シェア</span>
               <span class="lang-en">SHARE ON X</span>
             </span>
@@ -224,9 +195,11 @@
         </div>
         
         <div class="flex justify-center mb-10">
-          <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-8 outline-none w-1/2">
-            <span class="text-xl text-[#999999] font-serif font-bold italic">P</span>
-            <span class="text-sm text-[#cccccc] font-sans font-bold">
+          <button class="flex items-center justify-center gap-2.5 border border-[#333333] bg-black py-3 px-8 min-w-[160px] outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="18" height="18" fill="currentColor" class="text-[#999999]">
+              <path d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3 .8-3.4 5-20.3 6.9-28.1 .6-2.5 .3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/>
+            </svg>
+            <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
               <span class="lang-ja">シェア</span>
               <span class="lang-en">SHARE</span>
             </span>
@@ -245,36 +218,27 @@
       </div>
 
     </div> 
-    <!-- End of Impact font container -->
-
   </main>
 
-  <!-- ==========================================
-       言語切り替え用 JavaScript
-       ========================================== -->
   <script>
     let isEnglish = false;
-    
     function toggleLanguage() {
       isEnglish = !isEnglish;
       const body = document.body;
       const iconUs = document.getElementById('icon-us');
       const iconJp = document.getElementById('icon-jp');
-      
       if (isEnglish) {
-        // 英語モードにする
         body.classList.add('is-english');
         iconUs.classList.replace('opacity-30', 'opacity-100');
         iconJp.classList.replace('opacity-100', 'opacity-30');
       } else {
-        // 日本語モードにする
         body.classList.remove('is-english');
         iconUs.classList.replace('opacity-100', 'opacity-30');
         iconJp.classList.replace('opacity-30', 'opacity-100');
       }
     }
   </script>
-
 </body>
 </html>
+
 
