@@ -98,7 +98,7 @@
       <img src="icon.PNG" alt="Logo" class="absolute top-[-30px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
     </div>
 
-    <!-- 中央: タイトル -->
+    <!-- 中央: タイトル (元に戻す) -->
     <div class="absolute left-1/2 transform -translate-x-1/2 font-blackops text-[26px] z-0 whitespace-nowrap" style="color: #000000; text-shadow: 0 0 2px #00e5ff, 0 0 5px #00e5ff, 0 0 8px #00e5ff;">
       AICHI ★01
     </div>
@@ -125,11 +125,9 @@
     <section class="w-screen shrink-0 snap-center relative bg-black">
       <div id="left-panel-content" class="absolute top-0 w-full h-screen flex flex-col items-center justify-center z-0 overflow-hidden">
         <div class="transform rotate-[6deg] flex flex-col items-center justify-center">
-          <!-- 見出し: ?だけBlack Ops One、上に4pxズラして1.1倍に拡大 -->
           <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
             BACK FOR<br>MORE<span class="font-blackops inline-block transform -translate-y-[4px] scale-[1.1] ml-1">?</span>
           </h2>
-          <!-- 枠内の文字: 矢印なし、1行、大きめ(26px) -->
           <div class="prev-btn bg-black/50 backdrop-blur-sm px-4 py-5 mb-8 w-[320px] flex justify-center items-center">
               <span class="font-blackops text-[26px] tracking-widest uppercase text-center w-full whitespace-nowrap">PREV FUNKY</span>
           </div>
@@ -142,11 +140,18 @@
     <section class="w-screen shrink-0 snap-center relative pb-20 bg-black">
       <main class="w-full max-w-md mx-auto px-2 pt-20">
         
-        <!-- ORIGIN OF FHW -->
-        <div class="mt-10 mb-6 flex flex-col items-center justify-center font-blackops leading-[0.9]" style="color: #c0c0c0; text-shadow: 0 0 3px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);">
+        <!-- ORIGIN OF FHW (少し上に上げる) -->
+        <div class="mt-4 mb-4 flex flex-col items-center justify-center font-blackops leading-[0.9]" style="color: #c0c0c0; text-shadow: 0 0 3px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);">
           <div class="text-[58px]">ORIGIN</div>
           <div class="text-[48px]">OF</div>
           <div class="text-[72px]">FHW</div>
+        </div>
+
+        <!-- ★追加: JAPAN GP 🇯🇵 -->
+        <div class="flex justify-center mb-8">
+          <div class="font-blackops text-white text-[24px] tracking-widest flex items-center gap-1.5">
+            JAPAN GP <span class="font-sans text-[20px]">🇯🇵</span>
+          </div>
         </div>
 
         <!-- 四コマ漫画エリア -->
@@ -186,7 +191,6 @@
 
           <!-- CRAFTED IN JAPAN & 印鑑 -->
           <div class="relative mt-2 pt-6 mb-4"> 
-            
             <!-- 右上の印鑑 (icon2.PNG) -->
             <div class="absolute right-[5%] top-[-35px] z-20 pointer-events-none">
               <img src="icon2.PNG" alt="Stamp" class="w-[80px] h-[80px] object-contain transform rotate-[-8deg] opacity-90 drop-shadow-md">
@@ -212,7 +216,7 @@
           <!-- --- LOCAL ROOTS (マップと車) --- -->
           <div class="relative w-full h-[280px] mb-10 px-2 mt-6 z-30">
             <!-- 愛知県マップ (aj.PNG) 完璧な位置 -->
-            <div class="absolute top-[-135px] left-[-110px] w-[155%] h-[155%] z-10 pointer-events-none">
+            <div class="absolute top-[-125px] left-[-110px] w-[150%] h-[150%] z-10 pointer-events-none">
               <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
             </div>
 
@@ -299,11 +303,9 @@
     <section class="w-screen shrink-0 snap-center relative bg-black">
       <div id="right-panel-content" class="absolute top-0 w-full h-screen flex flex-col items-center justify-center z-0 overflow-hidden">
         <div class="transform -rotate-[6deg] flex flex-col items-center justify-center">
-          <!-- 見出し: ?だけBlack Ops One、上に4pxズラして1.1倍に拡大 -->
           <h2 class="font-impact text-[42px] tracking-wider mb-6 text-center leading-[0.9] h2-glow">
             READY FOR<br>MORE MADNESS<span class="font-blackops inline-block transform -translate-y-[4px] scale-[1.1] ml-1">?</span>
           </h2>
-          <!-- 枠内の文字: 矢印なし、1行、大きめ(26px) -->
           <button class="next-btn bg-black/50 backdrop-blur-sm px-4 py-5 mb-8 w-[320px] flex justify-center items-center">
               <span class="font-blackops text-[26px] tracking-widest uppercase text-normal text-center w-full whitespace-nowrap">NEXT FUNKY</span>
               <span class="font-blackops text-[26px] tracking-widest uppercase text-active text-center w-full whitespace-nowrap">STILL TUNING...</span>
