@@ -39,11 +39,12 @@
 <body class="font-sans pb-20">
 
   <!-- --- ヘッダー領域 --- -->
-  <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 py-1.5 relative">
+  <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 py-2 relative">
     
-    <!-- 左: ロゴ画像 (幅100px、下10px、右5度 / タップで1.1倍＆12度) -->
-    <div class="relative z-10 flex items-center shrink-0">
-      <img src="icon.PNG" alt="Logo" class="w-[100px] transform translate-y-[10px] rotate-[5deg] transition-transform duration-200 active:scale-110 active:rotate-[12deg] cursor-pointer select-none">
+    <!-- 左: ロゴ画像 (幅100px、下10px、右上がり5度。タップで1.1倍＆右上がり12度) -->
+    <!-- absolute で枠からはみ出して配置 -->
+    <div class="absolute left-2 top-1/2 -translate-y-1/2 z-20">
+      <img src="icon.PNG" alt="Logo" class="w-[100px] translate-y-[10px] rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none">
     </div>
 
     <!-- 中央: タイトル -->
@@ -51,8 +52,8 @@
       AICHI ★01
     </div>
 
-    <!-- 右: 言語切り替え＆アイコン -->
-    <div class="flex items-center gap-2 relative z-10">
+    <!-- 右: 言語切り替え＆アイコン (左のロゴが絶対配置なので ml-auto で右寄せ) -->
+    <div class="flex items-center gap-2 relative z-10 ml-auto">
       <button onclick="toggleLanguage()" class="flex items-center gap-1.5 bg-black border border-[#333333] rounded-full px-1.5 py-0.5 outline-none cursor-pointer">
         <span id="icon-us" class="text-[11px] transition-opacity opacity-30">🇺🇸</span>
         <div class="w-px h-2.5 bg-[#444444]"></div>
@@ -74,7 +75,9 @@
 
     <!-- 四コマ漫画エリア (画像を挿入) -->
     <div class="relative w-full px-2 mb-12">
+      <!-- 後ろのシアン発光 -->
       <div class="absolute inset-2 bg-[#00e5ff] blur-[20px] opacity-20 rounded-lg"></div>
+      <!-- 画像本体 (9:16) -->
       <div class="relative aspect-[9/16] bg-[#0a0a0a] border border-[#222222] rounded-sm flex flex-col justify-center items-center overflow-hidden z-10">
         <img src="AICHI.jpeg" alt="AICHI Comic" class="w-full h-full object-cover">
       </div>
@@ -107,20 +110,18 @@
         </div>
       </div>
 
-      <!-- セパレーター的なロゴ -->
+      <!-- 右上の印鑑 (icon2.PNG) -->
       <div class="flex justify-end mt-2 mb-4 pr-2">
-        <div class="w-16 h-16 bg-[#111111] border border-[#222222] rounded-full flex items-center justify-center transform -rotate-12">
-          <span class="text-[10px] text-[#555555] font-bold">FHW</span>
-        </div>
+        <img src="icon2.PNG" alt="Stamp" class="w-20 h-20 object-contain transform rotate-[-8deg] opacity-90 drop-shadow-md">
       </div>
 
-      <!-- CRAFTED IN JAPAN -->
+      <!-- CRAFTED IN JAPAN (日の丸はここに死守) -->
       <div class="font-impact relative flex justify-center items-center tracking-[0.6em] pl-[0.6em] text-[#e5e5e5] text-[20px]">
         <span>CRAFTED</span>
         
-        <!-- IN の部分 (印鑑画像に変更) -->
+        <!-- IN の部分 (赤丸背景) -->
         <span class="relative mx-[0.4em] flex items-center justify-center">
-          <img src="icon2.PNG" alt="stamp" class="absolute w-[50px] h-[50px] z-0 transform -translate-x-[6px] object-contain">
+          <div class="absolute w-[42px] h-[42px] bg-[#ff0000] rounded-full blur-[2px] opacity-100 z-0 transform -translate-x-[6px]" style="box-shadow: 0 0 12px rgba(255,0,0,0.8);"></div>
           <span class="relative z-10 text-white">IN</span>
         </span>
         
@@ -134,34 +135,37 @@
     <div class="font-impact">
 
       <!-- --- LOCAL ROOTS (マップと車) --- -->
-      <div class="relative w-full h-64 mb-16 px-2">
+      <div class="relative w-full h-[280px] mb-16 px-2 mt-4">
         
-        <!-- 左側: 愛知県マップ (画像を挿入) -->
-        <div class="absolute top-0 left-0 w-[65%] h-full opacity-60 flex items-center justify-center">
-           <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-center">
+        <!-- 左背景のグレー枠 -->
+        <div class="absolute top-4 left-0 w-[70%] h-[85%] bg-[#111111] rounded-3xl border border-[#222222] z-0"></div>
+
+        <!-- 愛知県マップ (aj.PNG) 枠からはみ出して大きく配置 -->
+        <div class="absolute top-[-10px] left-[-20px] w-[80%] h-[110%] z-10 pointer-events-none">
+          <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80">
         </div>
 
         <!-- マップ上の赤ターゲットマーク -->
-        <div class="absolute top-1/3 left-1/4 w-5 h-5 z-10">
+        <div class="absolute top-[35%] left-[25%] w-6 h-6 z-20">
           <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
           <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
           <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
         </div>
 
         <!-- 右上: 座標とテキスト -->
-        <div class="absolute top-0 right-0 text-right pr-2">
+        <div class="absolute top-2 right-2 text-right z-20 pr-2">
           <div class="text-[#888888] text-sm tracking-wider">35.1850°N</div>
           <div class="text-[#888888] text-sm tracking-wider mb-1">136.8997°E</div>
           <div class="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
         </div>
 
-        <!-- 右下: 車 (画像を挿入、はみ出し気味に配置) -->
-        <div class="absolute bottom-[0px] right-[-10px] w-2/3 h-[110%] z-20 flex items-end justify-end pointer-events-none">
-           <img src="maru.PNG" alt="Car" class="w-full object-contain object-right-bottom drop-shadow-2xl">
+        <!-- 車 (maru.PNG) 枠から右・下にはみ出して特大配置 -->
+        <div class="absolute bottom-[-20px] right-[-20px] w-[85%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
+           <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
         </div>
 
         <!-- 左下: AICHI JAPAN テキスト -->
-        <div class="absolute bottom-0 left-2 z-10 flex items-center gap-2">
+        <div class="absolute bottom-2 left-4 z-40 flex items-center gap-2">
           <span class="text-[#888888] text-2xl tracking-wider">AICHI</span>
           <span class="text-xl font-sans">🇯🇵</span>
           <span class="text-[#888888] text-2xl tracking-wider">JAPAN</span>
@@ -175,8 +179,9 @@
           <span class="lang-en">Share this madness</span>
         </h2>
 
-        <!-- シェアボタン群 -->
+        <!-- シェアボタン群 (上段2つ) -->
         <div class="grid grid-cols-2 gap-3 mb-3">
+          <!-- リンクをコピー -->
           <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#999999]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
             <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
@@ -185,6 +190,7 @@
             </span>
           </button>
           
+          <!-- Xでシェア -->
           <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="text-[#999999]"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
             <span class="text-[13px] text-[#cccccc] tracking-wider" style="font-family: sans-serif !important; font-weight: bold;">
@@ -194,6 +200,7 @@
           </button>
         </div>
         
+        <!-- Pシェア -->
         <div class="flex justify-center mb-10">
           <button class="flex items-center justify-center gap-2.5 border border-[#333333] bg-black py-3 px-8 min-w-[160px] outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="18" height="18" fill="currentColor" class="text-[#999999]">
