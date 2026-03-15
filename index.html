@@ -55,7 +55,7 @@
   <!-- --- ヘッダー領域 --- -->
   <header class="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-[#222222] flex items-center justify-between px-3 h-14 relative">
     
-    <!-- 左: ロゴ画像 (完璧だった位置 top-[-32px]) -->
+    <!-- 左: ロゴ画像 -->
     <div class="relative z-20 flex items-center justify-start w-12">
       <img src="icon.PNG" alt="Logo" class="absolute top-[-32px] left-[0px] w-[100px] max-w-none rotate-[-5deg] transition-all duration-200 active:scale-110 active:rotate-[-12deg] cursor-pointer select-none origin-center drop-shadow-lg">
     </div>
@@ -126,7 +126,7 @@
       <!-- CRAFTED IN JAPAN & 印鑑 -->
       <div class="relative mt-2 pt-6 mb-4"> 
         
-        <!-- 右上の印鑑 (icon2.PNG) 完璧だった位置 top-[-35px] -->
+        <!-- 右上の印鑑 (icon2.PNG) -->
         <div class="absolute right-[5%] top-[-35px] z-20 pointer-events-none">
           <img src="icon2.PNG" alt="Stamp" class="w-[80px] h-[80px] object-contain transform rotate-[-8deg] opacity-90 drop-shadow-md">
         </div>
@@ -157,32 +157,32 @@
       <div class="relative w-full h-[280px] mb-10 px-2 mt-6">
         
         <!-- 愛知県マップ (aj.PNG) 
-             ★最も完璧だった時のサイズと位置に完全復旧！★ -->
-        <div class="absolute top-[-120px] left-[-160px] w-[200%] h-[200%] z-10 pointer-events-none">
+             ★サイズを小さくし、ガッツリ左に見切れさせる！★ -->
+        <div class="absolute top-[-60px] left-[-80px] w-[130%] h-[130%] z-10 pointer-events-none">
           <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
         </div>
 
-        <!-- マップ上の赤ターゲットマーク (完璧だった位置) -->
-        <div class="absolute top-[10%] left-[5%] w-6 h-6 z-20">
+        <!-- マップ上の赤ターゲットマーク (愛知県の縮小に合わせて位置を微調整) -->
+        <div class="absolute top-[8%] left-[8%] w-6 h-6 z-20">
           <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
           <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
           <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
         </div>
 
-        <!-- 右上: 座標とテキスト (完璧だった位置) -->
-        <div class="absolute top-0 right-0 text-right z-20 pr-2">
+        <!-- 右上: 座標とテキスト -->
+        <div class="absolute top-[-15px] right-8 z-20 pr-2">
           <div class="text-[#888888] text-sm tracking-wider">35.1850°N</div>
           <div class="text-[#888888] text-sm tracking-wider mb-1">136.8997°E</div>
           <div class="text-[#666666] text-xs tracking-widest">LOCAL ROOTS</div>
         </div>
 
         <!-- 車 (maru.PNG) 
-             ★最も完璧だった時のサイズと位置に完全復旧！★ -->
-        <div class="absolute bottom-[-10px] right-[-50px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
+             ★ここは触らずに、そのまま右に見切れている状態をキープ！★ -->
+        <div class="absolute bottom-[-10px] right-[-80px] w-[90%] h-[130%] z-30 pointer-events-none flex items-end justify-end">
            <img src="maru.PNG" alt="Car" class="w-full h-full object-contain object-right-bottom drop-shadow-2xl">
         </div>
 
-        <!-- 左下: AICHI JAPAN テキスト (完璧だった位置) -->
+        <!-- 左下: AICHI JAPAN テキスト -->
         <div class="absolute bottom-[-15px] left-4 z-40 flex items-center gap-2">
           <span class="text-[#888888] text-2xl tracking-wider">AICHI</span>
           <span class="text-xl font-sans">🇯🇵</span>
@@ -197,7 +197,7 @@
           <span class="lang-en">Share this madness</span>
         </h2>
 
-        <!-- シェアボタン群 -->
+        <!-- シェアボタン群 (上段2つ) -->
         <div class="grid grid-cols-2 gap-3 mb-3">
           <button class="flex items-center justify-center gap-2 border border-[#333333] bg-black py-3 px-2 outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#999999]"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
