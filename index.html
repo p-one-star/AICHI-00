@@ -205,7 +205,6 @@
           <div class="relative aspect-[9/16] bg-[#0a0a0a] border border-[#222222] rounded-sm flex flex-col justify-center items-center overflow-hidden z-10">
             <img src="AICHI.jpeg" alt="AICHI Comic" class="w-full h-full object-cover">
           </div>
-          <!-- 拡大できるよ案内 -->
           <div class="absolute bottom-2 right-4 z-20 bg-black/70 backdrop-blur-sm px-2 py-1 rounded text-white text-[10px] tracking-widest font-impact">TAP TO EXPAND</div>
         </div>
 
@@ -376,9 +375,7 @@
        ========================================== -->
   <div id="image-modal" class="fixed inset-0 z-[100] bg-black hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300">
     <div class="absolute top-4 right-4 text-white text-4xl font-blackops z-[110] cursor-pointer drop-shadow-md px-4 py-2" onclick="closeModal()">×</div>
-    
     <img id="modal-img" src="AICHI.jpeg" alt="AICHI Comic Full" class="max-w-full max-h-screen object-contain transition-transform duration-200 origin-center cursor-move select-none" draggable="false">
-    
     <div id="modal-hint" class="absolute bottom-10 text-[#888888] font-impact tracking-widest text-sm text-center pointer-events-none transition-opacity duration-300">
       <span class="block mb-1">DOUBLE TAP TO ZOOM</span>
       <span class="block mb-1">SWIPE DOWN TO CLOSE</span>
@@ -390,9 +387,11 @@
        ★秘密のギミックモーダル 1: クルマ (BUY THIS MADNESS?) ★
        ========================================== -->
   <div id="buy-modal" class="fixed inset-0 z-[200] bg-black/90 hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-4">
-    <div class="relative bg-black border-[3px] border-[#ff0000] p-8 w-full max-w-[320px] flex flex-col items-center justify-center" style="box-shadow: 0 0 15px rgba(255,0,0,0.3);">
-      <h3 class="font-impact text-[32px] text-white tracking-widest text-center mb-8 leading-tight uppercase" style="text-shadow: 0 0 10px #ff0000, 0 0 20px rgba(255,0,0,0.6);">
-        BUY THIS<br>MADNESS<span class="font-blackops inline-block transform -translate-y-[4px] scale-[1.1] ml-1">?</span>
+    <!-- ★修正: max-wを少し広げてパディング調整し、1行で最大化 -->
+    <div class="relative bg-black border-[3px] border-[#ff0000] px-4 py-8 w-full max-w-[340px] flex flex-col items-center justify-center" style="box-shadow: 0 0 15px rgba(255,0,0,0.3);">
+      <!-- ★修正: 1行化＆文字サイズ調整 -->
+      <h3 class="font-impact text-[28px] text-white tracking-widest text-center mb-8 leading-tight uppercase whitespace-nowrap" style="text-shadow: 0 0 10px #ff0000, 0 0 20px rgba(255,0,0,0.6);">
+        BUY THIS MADNESS<span class="font-blackops inline-block transform -translate-y-[2px] scale-[1.1] ml-1">?</span>
       </h3>
       <div class="font-mono text-[#888888] text-[14px] text-center tracking-widest mb-10 leading-[1.8]">
         STILL TUNING IN THE<br>GARAGE...<br>COMING SOON.
@@ -407,25 +406,52 @@
        ★秘密のギミックモーダル 2: 愛知スナイパー (WARP TO AICHI?) ★
        ========================================== -->
   <div id="warp-modal" class="fixed inset-0 z-[200] bg-black/90 hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-4">
-    <div class="relative bg-black border-[3px] border-[#00e5ff] p-8 w-full max-w-[320px] flex flex-col items-center justify-center" style="box-shadow: 0 0 15px rgba(0,229,255,0.3);">
-      <h3 class="font-impact text-[32px] text-white tracking-widest text-center mb-6 leading-tight uppercase" style="text-shadow: 0 0 10px #00e5ff, 0 0 20px rgba(0,229,255,0.6);">
-        WARP TO AICHI<span class="font-blackops inline-block transform -translate-y-[4px] scale-[1.1] ml-1">?</span>
+    <!-- ★修正: max-wを少し広げてパディング調整し、1行で最大化 -->
+    <div class="relative bg-black border-[3px] border-[#00e5ff] px-4 py-8 w-full max-w-[340px] flex flex-col items-center justify-center" style="box-shadow: 0 0 15px rgba(0,229,255,0.3);">
+      <!-- ★修正: 1行化＆文字サイズ調整 -->
+      <h3 class="font-impact text-[28px] text-white tracking-widest text-center mb-6 leading-tight uppercase whitespace-nowrap" style="text-shadow: 0 0 10px #00e5ff, 0 0 20px rgba(0,229,255,0.6);">
+        WARP TO AICHI<span class="font-blackops inline-block transform -translate-y-[2px] scale-[1.1] ml-1">?</span>
       </h3>
       <div class="font-mono text-[#888888] text-[14px] text-center tracking-widest mb-8 leading-[1.8]">
         Maybe the real world<br>opens.
       </div>
       
-      <button class="w-[90%] border-2 border-[#00e5ff] py-3 mb-4 text-center outline-none transition-colors active:bg-[#00e5ff] group">
+      <!-- ★修正: GOボタンでGoogle Earthの座標へジャンプ -->
+      <button class="w-[90%] border-2 border-[#00e5ff] py-3 mb-4 text-center outline-none transition-colors active:bg-[#00e5ff] group" onclick="warpToGo()">
         <span class="font-impact text-[#00e5ff] group-active:text-black text-[22px] tracking-widest uppercase transition-colors">GO</span>
       </button>
       
-      <button class="w-[90%] border-2 border-[#ff0000] py-3 mb-6 text-center outline-none transition-colors active:bg-[#ff0000] group">
+      <!-- ★修正: TOMATOボタンで狂気の世界へ -->
+      <button class="w-[90%] border-2 border-[#ff0000] py-3 mb-6 text-center outline-none transition-colors active:bg-[#ff0000] group" onclick="warpToTomato()">
         <span class="font-impact text-[#ff0000] group-active:text-black text-[22px] tracking-widest uppercase transition-colors">TOMATO</span>
       </button>
 
       <button class="w-[90%] border-2 border-[#555555] py-3 text-center outline-none transition-colors active:bg-[#333]" onclick="closeWarpModal()">
         <span class="font-impact text-[#888888] text-[20px] tracking-widest uppercase">BUCK</span>
       </button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       ★秘密のギミックモーダル 3: TOMATO (TOO FUNKY ZONE) ★
+       ========================================== -->
+  <div id="tomato-modal" class="fixed inset-0 z-[300] bg-black hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-4">
+    <div class="relative bg-black border-[3px] border-[#ccff00] p-8 w-full max-w-[340px] flex flex-col items-center justify-center" style="box-shadow: 0 0 20px rgba(204,255,0,0.3), inset 0 0 10px rgba(204,255,0,0.1);">
+      
+      <div class="text-white font-impact text-[32px] tracking-widest mb-6 flex items-center justify-center gap-2" style="text-shadow: 0 0 10px rgba(255,255,255,0.8);">
+        <span class="text-[28px]">🍅</span>
+        <span>WELCOME</span>
+        <span class="text-[28px]">🍅</span>
+      </div>
+      
+      <div class="text-[#ccff00] font-blackops text-[24px] tracking-widest text-center mb-8 whitespace-nowrap" style="text-shadow: 0 0 10px #ccff00;">
+        TOO FUNKY ZONE
+      </div>
+      
+      <div class="text-[#ff0033] font-impact text-[16px] tracking-[0.1em] text-center" style="text-shadow: 0 0 8px #ff0033;">
+        ⚠️ MYSTERIES ROAMING FREE ⚠️
+      </div>
+      
     </div>
   </div>
 
@@ -446,7 +472,7 @@
       setTimeout(() => { buyModal.classList.add('hidden'); buyModal.classList.remove('flex'); }, 300);
     }
 
-    // --- 秘密のギミック (愛知県スナイパー) ひょこひょこ移動！ ---
+    // --- 秘密のギミック (愛知県スナイパー) ---
     const warpModal = document.getElementById('warp-modal');
     const targetMark = document.getElementById('target-mark');
     const locatingText = document.getElementById('locating-text');
@@ -463,13 +489,12 @@
       
       targetMark.style.transition = 'all 0.2s ease-out';
       
-      // ★修正: 最終着地点を黄色い印があった「さらに左上(top: 8%, left: 2%)」へ！
       const steps = [
         { top: '18%', left: '24%' },
         { top: '26%', left: '12%' },
         { top: '14%', left: '20%' },
         { top: '20%', left: '10%' },
-        { top: '8%', left: '2%' } // ←最終ロックオン位置！(マップ左端のドンピシャ位置)
+        { top: '8%', left: '2%' } // 最終ロックオン位置！(マップ左端のドンピシャ位置)
       ];
 
       let stepIdx = 0;
@@ -513,6 +538,41 @@
       warpModal.classList.remove('opacity-100');
       warpModal.classList.add('opacity-0');
       setTimeout(() => { warpModal.classList.add('hidden'); warpModal.classList.remove('flex'); }, 300);
+    }
+
+    // --- ★追加: GOボタンで Google Earth ジャンプ ---
+    function warpToGo() {
+      // 画面に記載されている名古屋城の座標で検索するURL
+      const earthUrl = 'https://earth.google.com/web/search/35.1850,136.8997';
+      window.open(earthUrl, '_blank');
+    }
+
+    // --- ★追加: TOMATOボタンで 狂気の世界へジャンプ ---
+    function warpToTomato() {
+      const tomatoModal = document.getElementById('tomato-modal');
+      
+      // 1. 現在のWarpモーダルを隠す
+      warpModal.classList.remove('opacity-100');
+      warpModal.classList.add('opacity-0');
+      
+      setTimeout(() => {
+        warpModal.classList.add('hidden');
+        warpModal.classList.remove('flex');
+        
+        // 2. Tomatoモーダルを表示
+        tomatoModal.classList.remove('hidden');
+        tomatoModal.classList.add('flex');
+        setTimeout(() => {
+          tomatoModal.classList.remove('opacity-0');
+          tomatoModal.classList.add('opacity-100');
+        }, 10);
+        
+        // 3. 2秒後に指定URLへ強制ワープ(遷移)
+        setTimeout(() => {
+          window.location.href = 'https://funkyhotdog.com/wild-tomato';
+        }, 2000);
+        
+      }, 300);
     }
 
     // --- 画像モーダル (全画面・ズーム・スワイプ) 機能 ---
@@ -585,9 +645,7 @@
       }
     }
 
-    modalImg.addEventListener('dblclick', (e) => {
-      toggleZoom(e.clientX, e.clientY);
-    });
+    modalImg.addEventListener('dblclick', (e) => { toggleZoom(e.clientX, e.clientY); });
 
     let lastTap = 0;
     modal.addEventListener('touchstart', (e) => {
@@ -625,7 +683,6 @@
         return;
       }
       lastTap = currentTime;
-
       if (isZoomed) return;
 
       const touchEndX = e.changedTouches[0].clientX;
@@ -637,15 +694,10 @@
         if (Math.abs(diffX) > Math.abs(diffY)) {
           closeModal();
           const carousel = document.getElementById('carousel');
-          if (diffX > 0) {
-            carousel.scrollTo({ left: 0, behavior: 'smooth' }); 
-          } else {
-            carousel.scrollTo({ left: window.innerWidth * 2, behavior: 'smooth' }); 
-          }
+          if (diffX > 0) { carousel.scrollTo({ left: 0, behavior: 'smooth' }); } 
+          else { carousel.scrollTo({ left: window.innerWidth * 2, behavior: 'smooth' }); }
         } else {
-          if (diffY > 50) {
-            closeModal(); 
-          }
+          if (diffY > 50) { closeModal(); }
         }
       }
     });
@@ -666,19 +718,14 @@
         lastTouchY = e.clientY;
       }
     });
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
 
     // --- 共通: シェアボタンクリック時のシアン発光フィードバック ---
     function triggerClickFeedback(btn) {
       btn.classList.add('is-clicked');
       const svg = btn.querySelector('svg');
       const spans = btn.querySelectorAll('span');
-      if (svg) {
-        svg.classList.remove('text-[#999999]');
-        svg.classList.add('text-[#00e5ff]');
-      }
+      if (svg) { svg.classList.remove('text-[#999999]'); svg.classList.add('text-[#00e5ff]'); }
       spans.forEach(span => {
         if (span.classList.contains('text-[#cccccc]')) {
           span.classList.remove('text-[#cccccc]');
@@ -688,10 +735,7 @@
       });
       setTimeout(() => {
         btn.classList.remove('is-clicked');
-        if (svg) {
-          svg.classList.remove('text-[#00e5ff]');
-          svg.classList.add('text-[#999999]');
-        }
+        if (svg) { svg.classList.remove('text-[#00e5ff]'); svg.classList.add('text-[#999999]'); }
         spans.forEach(span => {
           if (span.dataset.origColor) {
             span.classList.remove('text-[#00e5ff]');
