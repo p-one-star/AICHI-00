@@ -116,7 +116,7 @@
     /* ギミック発動時 (JSで付与) */
     .gimmick-next-btn.is-alert {
       background-color: rgba(0, 0, 0, 0.5) !important;
-      border-color: #ff0000 !important; /* 純粋な赤 */
+      border-color: #ff0000 !important;
       box-shadow: 0 0 25px rgba(255,0,0,0.8), inset 0 0 25px rgba(255,0,0,0.8) !important;
     }
     .gimmick-next-btn.is-alert .text-normal { display: none !important; }
@@ -205,6 +205,7 @@
           <div class="relative aspect-[9/16] bg-[#0a0a0a] border border-[#222222] rounded-sm flex flex-col justify-center items-center overflow-hidden z-10">
             <img src="AICHI.jpeg" alt="AICHI Comic" class="w-full h-full object-cover">
           </div>
+          <!-- 拡大できるよ案内 -->
           <div class="absolute bottom-2 right-4 z-20 bg-black/70 backdrop-blur-sm px-2 py-1 rounded text-white text-[10px] tracking-widest font-impact">TAP TO EXPAND</div>
         </div>
 
@@ -462,13 +463,13 @@
       
       targetMark.style.transition = 'all 0.2s ease-out';
       
-      // ★修正: 最終着地点をさらに左上(top: 10%, left: 8%)へ変更！
+      // ★修正: 最終着地点を黄色い印があった「さらに左上(top: 8%, left: 2%)」へ！
       const steps = [
         { top: '18%', left: '24%' },
         { top: '26%', left: '12%' },
         { top: '14%', left: '20%' },
         { top: '20%', left: '10%' },
-        { top: '10%', left: '8%' } // ←最終ロックオン位置！(名古屋城ドンピシャ)
+        { top: '8%', left: '2%' } // ←最終ロックオン位置！(マップ左端のドンピシャ位置)
       ];
 
       let stepIdx = 0;
