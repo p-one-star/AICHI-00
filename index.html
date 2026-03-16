@@ -53,7 +53,7 @@
     body.is-english span.lang-ja { display: none; }
 
     /* ==========================================
-       呼吸アニメーション
+       アニメーション
        ========================================== */
     @keyframes breathe {
       0% { transform: scale(1); }
@@ -63,6 +63,16 @@
     .animate-breathe {
       animation: breathe 40s ease-in-out infinite;
       display: inline-block;
+    }
+
+    /* LOCATING用 薄ら見え隠れする高速フリッカーアニメーション */
+    @keyframes locating-flicker {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.8; }
+      25%, 75% { opacity: 0.3; }
+    }
+    .animate-locating {
+      animation: locating-flicker 0.15s infinite;
     }
 
     /* ==========================================
@@ -88,7 +98,7 @@
       cursor: pointer;
     }
     .panel-btn .text-normal { display: block; color: inherit; transition: color 0.2s ease; }
-    .panel-btn .text-active { display: none; color: #ff0033; }
+    .panel-btn .text-active { display: none; color: #ff0000; }
 
     @media (hover: hover) {
       .panel-btn:hover:not(.is-alert) {
@@ -103,13 +113,14 @@
       box-shadow: 0 0 30px rgba(0,229,255,1), inset 0 0 15px rgba(0,229,255,0.8);
     }
 
+    /* ギミック発動時 (JSで付与) */
     .gimmick-next-btn.is-alert {
       background-color: rgba(0, 0, 0, 0.5) !important;
-      border-color: #ff0033 !important;
-      box-shadow: 0 0 25px rgba(255,0,51,0.8), inset 0 0 25px rgba(255,0,51,0.8) !important;
+      border-color: #ff0000 !important; /* 純粋な赤 */
+      box-shadow: 0 0 25px rgba(255,0,0,0.8), inset 0 0 25px rgba(255,0,0,0.8) !important;
     }
     .gimmick-next-btn.is-alert .text-normal { display: none !important; }
-    .gimmick-next-btn.is-alert .text-active { display: block !important; }
+    .gimmick-next-btn.is-alert .text-active { display: block !important; color: #ff0000 !important; }
 
     /* ==========================================
        シェアボタン
@@ -194,7 +205,6 @@
           <div class="relative aspect-[9/16] bg-[#0a0a0a] border border-[#222222] rounded-sm flex flex-col justify-center items-center overflow-hidden z-10">
             <img src="AICHI.jpeg" alt="AICHI Comic" class="w-full h-full object-cover">
           </div>
-          <!-- 拡大できるよ案内 -->
           <div class="absolute bottom-2 right-4 z-20 bg-black/70 backdrop-blur-sm px-2 py-1 rounded text-white text-[10px] tracking-widest font-impact">TAP TO EXPAND</div>
         </div>
 
@@ -246,12 +256,6 @@
         <div class="font-impact">
           <!-- --- LOCAL ROOTS (マップと車) ギミック搭載エリア --- -->
           <div class="relative w-full h-[280px] mb-10 px-2 mt-6 z-30">
-            
-            <!-- LOCATING... の点滅テキスト (初期は隠しておく) -->
-            <div id="locating-text" class="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#ff0033] font-impact text-[28px] tracking-[0.2em] z-30 hidden pointer-events-none" style="text-shadow: 0 0 8px #ff0033; animation: pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;">
-              LOCATING...
-            </div>
-
             <!-- 愛知県マップ -->
             <div class="absolute top-[-125px] left-[-110px] w-[150%] h-[150%] z-10 pointer-events-none">
               <img src="aj.PNG" alt="Aichi Map" class="w-full h-full object-contain object-left-top opacity-80 drop-shadow-xl">
@@ -260,11 +264,14 @@
             <!-- ギミック用: 愛知県を覆う透明ボタン (タップでスナイパー発動) -->
             <div class="absolute top-[0px] left-[0px] w-[60%] h-[70%] z-40 cursor-pointer" onclick="startLocating()"></div>
 
-            <!-- マップ上の赤ターゲットマーク (初期位置を少し右下にし、CSSアニメーションを追加) -->
-            <div id="target-mark" class="absolute top-[20%] left-[20%] w-6 h-6 z-20 pointer-events-none" style="transition: all 1.5s ease-in-out;">
-              <div class="absolute inset-0 border-[1.5px] border-[#ff0033] rounded-full" style="box-shadow: 0 0 4px #ff0033, inset 0 0 4px #ff0033;"></div>
-              <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0033] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
-              <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0033] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0033;"></div>
+            <!-- マップ上の赤ターゲットマーク -->
+            <div id="target-mark" class="absolute top-[20%] left-[20%] w-6 h-6 z-20 pointer-events-none" style="transition: all 0.2s ease-out;">
+              <div class="absolute inset-0 border-[1.5px] border-[#ff0000] rounded-full" style="box-shadow: 0 0 4px #ff0000, inset 0 0 4px #ff0000;"></div>
+              <div class="absolute top-1/2 left-[-4px] right-[-4px] h-[1.5px] bg-[#ff0000] transform -translate-y-1/2" style="box-shadow: 0 0 4px #ff0000;"></div>
+              <div class="absolute top-[-4px] bottom-[-4px] left-1/2 w-[1.5px] bg-[#ff0000] transform -translate-x-1/2" style="box-shadow: 0 0 4px #ff0000;"></div>
+              
+              <!-- 照準の上に追従する LOCATING / LOCKED テキスト -->
+              <div id="locating-text" class="absolute bottom-[130%] left-1/2 transform -translate-x-1/2 text-[#ff0000] font-blackops text-[12px] tracking-[0.1em] whitespace-nowrap opacity-0 transition-opacity duration-200" style="text-shadow: 0 0 4px #ff0000;"></div>
             </div>
 
             <!-- 右上: 座標とテキスト -->
@@ -337,7 +344,7 @@
               </a>
               <button class="gimmick-next-btn w-full bg-black border border-[#333333] border-l-[3px] border-l-[#00e5ff] py-5 flex justify-center items-center outline-none transition-colors">
                 <span class="text-[#cccccc] tracking-widest text-[22px] uppercase font-impact text-normal">NEXT FUNKY ★04</span>
-                <span class="text-[#ff0033] tracking-widest text-[26px] uppercase font-blackops text-active hidden">STILL TUNING...</span>
+                <span class="text-[#ff0000] tracking-widest text-[26px] uppercase font-blackops text-active hidden">STILL TUNING...</span>
               </button>
             </div>
           </div>
@@ -354,7 +361,7 @@
           </h2>
           <button id="next-btn" class="gimmick-next-btn panel-btn backdrop-blur-sm px-4 py-5 mb-8 w-[320px] flex justify-center items-center">
               <span class="font-blackops text-[26px] tracking-widest uppercase text-normal text-center w-full whitespace-nowrap">NEXT FUNKY</span>
-              <span class="font-blackops text-[26px] tracking-widest uppercase text-active text-center w-full whitespace-nowrap">STILL TUNING...</span>
+              <span class="text-[#ff0000] tracking-widest text-[26px] uppercase font-blackops text-active text-center w-full whitespace-nowrap hidden">STILL TUNING...</span>
           </button>
           <div class="font-impact text-[#888888] text-sm tracking-widest uppercase">← SWIPE RIGHT TO CANCEL</div>
         </div>
@@ -382,14 +389,13 @@
        ★秘密のギミックモーダル 1: クルマ (BUY THIS MADNESS?) ★
        ========================================== -->
   <div id="buy-modal" class="fixed inset-0 z-[200] bg-black/90 hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-4">
-    <div class="relative bg-black border-[3px] border-[#ff00aa] p-8 w-full max-w-[320px] flex flex-col items-center justify-center" style="box-shadow: 0 0 15px rgba(255,0,170,0.3);">
-      <h3 class="font-impact text-[32px] text-white tracking-widest text-center mb-8 leading-tight uppercase" style="text-shadow: 0 0 10px #ff00aa, 0 0 20px rgba(255,0,170,0.6);">
-        BUY THIS<br>MADNESS?
+    <div class="relative bg-black border-[3px] border-[#ff0000] p-8 w-full max-w-[320px] flex flex-col items-center justify-center" style="box-shadow: 0 0 15px rgba(255,0,0,0.3);">
+      <h3 class="font-impact text-[32px] text-white tracking-widest text-center mb-8 leading-tight uppercase" style="text-shadow: 0 0 10px #ff0000, 0 0 20px rgba(255,0,0,0.6);">
+        BUY THIS<br>MADNESS<span class="font-blackops inline-block transform -translate-y-[4px] scale-[1.1] ml-1">?</span>
       </h3>
       <div class="font-mono text-[#888888] text-[14px] text-center tracking-widest mb-10 leading-[1.8]">
         STILL TUNING IN THE<br>GARAGE...<br>COMING SOON.
       </div>
-      <!-- BUCKボタン (キャンセル) -->
       <button class="w-[80%] border-2 border-[#555555] py-3 text-center outline-none transition-colors active:bg-[#333]" onclick="closeBuyModal()">
         <span class="font-impact text-[#888888] text-[20px] tracking-widest uppercase">BUCK</span>
       </button>
@@ -402,23 +408,20 @@
   <div id="warp-modal" class="fixed inset-0 z-[200] bg-black/90 hidden flex-col items-center justify-center opacity-0 transition-opacity duration-300 px-4">
     <div class="relative bg-black border-[3px] border-[#00e5ff] p-8 w-full max-w-[320px] flex flex-col items-center justify-center" style="box-shadow: 0 0 15px rgba(0,229,255,0.3);">
       <h3 class="font-impact text-[32px] text-white tracking-widest text-center mb-6 leading-tight uppercase" style="text-shadow: 0 0 10px #00e5ff, 0 0 20px rgba(0,229,255,0.6);">
-        WARP TO AICHI?
+        WARP TO AICHI<span class="font-blackops inline-block transform -translate-y-[4px] scale-[1.1] ml-1">?</span>
       </h3>
       <div class="font-mono text-[#888888] text-[14px] text-center tracking-widest mb-8 leading-[1.8]">
         Maybe the real world<br>opens.
       </div>
       
-      <!-- GO ボタン -->
       <button class="w-[90%] border-2 border-[#00e5ff] py-3 mb-4 text-center outline-none transition-colors active:bg-[#00e5ff] group">
         <span class="font-impact text-[#00e5ff] group-active:text-black text-[22px] tracking-widest uppercase transition-colors">GO</span>
       </button>
       
-      <!-- TOMATO ボタン (誤字のまま正解) -->
-      <button class="w-[90%] border-2 border-[#ff0033] py-3 mb-6 text-center outline-none transition-colors active:bg-[#ff0033] group">
-        <span class="font-impact text-[#ff0033] group-active:text-black text-[22px] tracking-widest uppercase transition-colors">TOMATO</span>
+      <button class="w-[90%] border-2 border-[#ff0000] py-3 mb-6 text-center outline-none transition-colors active:bg-[#ff0000] group">
+        <span class="font-impact text-[#ff0000] group-active:text-black text-[22px] tracking-widest uppercase transition-colors">TOMATO</span>
       </button>
 
-      <!-- BUCK ボタン (キャンセル用) -->
       <button class="w-[90%] border-2 border-[#555555] py-3 text-center outline-none transition-colors active:bg-[#333]" onclick="closeWarpModal()">
         <span class="font-impact text-[#888888] text-[20px] tracking-widest uppercase">BUCK</span>
       </button>
@@ -442,7 +445,7 @@
       setTimeout(() => { buyModal.classList.add('hidden'); buyModal.classList.remove('flex'); }, 300);
     }
 
-    // --- 秘密のギミック (愛知県スナイパー) ---
+    // --- 秘密のギミック (愛知県スナイパー) ひょこひょこ移動！ ---
     const warpModal = document.getElementById('warp-modal');
     const targetMark = document.getElementById('target-mark');
     const locatingText = document.getElementById('locating-text');
@@ -452,25 +455,52 @@
       if(isLocating) return;
       isLocating = true;
       
-      // LOCATING点滅開始
-      locatingText.classList.remove('hidden');
+      locatingText.innerText = 'LOCATING...';
+      locatingText.classList.remove('opacity-0');
+      locatingText.classList.add('animate-locating');
+      locatingText.style.opacity = '';
       
-      // 照準を名古屋城あたりに移動 (CSSのtransitionで滑らかに動く)
-      targetMark.style.top = '40%';
-      targetMark.style.left = '45%';
+      targetMark.style.transition = 'all 0.2s ease-out';
       
-      // 1.5秒後にロックオン完了＆モーダルオープン
-      setTimeout(() => {
-        locatingText.classList.add('hidden');
-        openWarpModal();
-        
-        // モーダルが開いている裏で、こっそり照準を元の位置に戻しておく
-        setTimeout(() => {
-          targetMark.style.top = '20%';
-          targetMark.style.left = '20%';
-          isLocating = false;
-        }, 500);
-      }, 1500);
+      // ★修正: 最終着地点をさらに左上(top: 10%, left: 8%)へ変更！
+      const steps = [
+        { top: '18%', left: '24%' },
+        { top: '26%', left: '12%' },
+        { top: '14%', left: '20%' },
+        { top: '20%', left: '10%' },
+        { top: '10%', left: '8%' } // ←最終ロックオン位置！(名古屋城ドンピシャ)
+      ];
+
+      let stepIdx = 0;
+      
+      const moveInterval = setInterval(() => {
+        if (stepIdx < steps.length) {
+          targetMark.style.top = steps[stepIdx].top;
+          targetMark.style.left = steps[stepIdx].left;
+          stepIdx++;
+        } else {
+          clearInterval(moveInterval);
+          
+          setTimeout(() => {
+            locatingText.classList.remove('animate-locating'); 
+            locatingText.innerText = 'LOCKED';
+            locatingText.style.opacity = '1'; 
+            
+            setTimeout(() => {
+              locatingText.style.opacity = '';
+              locatingText.classList.add('opacity-0');
+              openWarpModal();
+              
+              setTimeout(() => {
+                targetMark.style.transition = 'none'; 
+                targetMark.style.top = '20%';
+                targetMark.style.left = '20%';
+                isLocating = false;
+              }, 500);
+            }, 800);
+          }, 200);
+        }
+      }, 250);
     }
 
     function openWarpModal() {
